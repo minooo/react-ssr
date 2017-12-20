@@ -1,0 +1,37 @@
+// 插件样式的覆盖调整
+.am-list-item .am-input-extra {
+  max-height: none;
+}
+
+.am-modal-close {
+  top: 0.2rem;
+}
+
+.am-number-keyboard-wrapper table tr .am-number-keyboard-item {
+  vertical-align: middle;
+}
+
+.change-input {
+  .am-list-item.am-input-item {
+    height: 0.5rem;
+    min-height: 0.5rem;
+    padding-left: 0.2rem;
+    background: #ededed;
+    border-radius: 0.04rem;
+    .am-list-line {
+      padding-right: 0.15rem;
+      .am-input-label {
+        color: #999;
+      }
+      .am-input-extra {
+        font-size: 0.24rem;
+        color: #666;
+      }
+    }
+  }
+}
+
+.home-banner .slider-frame {
+  height: 37.6vw!important;
+  max-height: 3.76rem!important;
+}

@@ -1,0 +1,146 @@
+// 其他的一些常用设置
+.block {
+  display: block;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.alert-bg {
+    position: fixed;
+    z-index: 120;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,.4);
+}
+
+.z-index10 {
+  z-index: 10;
+}
+
+.z-index20 {
+  z-index: 20;
+}
+
+.z-index50 {
+  z-index: 50;
+}
+
+.z-index100 {
+  z-index: 100;
+}
+
+.overflow-h {
+  overflow: hidden;
+}
+
+.overflow-y {
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+.overflow-x {
+  overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+.full-height {
+  height: 100vh;
+}
+
+.lh100 {
+  line-height: 100%;
+}
+
+.lh120 {
+  line-height: 120%;
+}
+
+.lh150 {
+  line-height: 150%;
+}
+
+// 文本方向
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+// 字符溢出隐藏
+.text-overflow-one {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// 字符超出一行溢出隐藏
+.text-overflow-1 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+// 字符超出两行溢出隐藏
+.text-overflow-2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+// 字符超出三行溢出隐藏
+.text-overflow-3 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+// 浮动控制 貌似浮动已经没有使用价值了，估计要删
+.fl {
+    float: left;
+}
+.fr {
+    float: right;
+}
+.cf {
+  &:before,
+  &:after {
+    content: '';
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+.reset {
+  outline: none;
+  border: none;
+}
+
+.bold {
+  font-weight: bolder;
+}

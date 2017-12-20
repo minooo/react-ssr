@@ -5,23 +5,23 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _getPrototypeOf = require('_babel-runtime@6.26.0@babel-runtime/core-js/object/get-prototype-of');
+var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
 
-var _classCallCheck2 = require('_babel-runtime@6.26.0@babel-runtime/helpers/classCallCheck');
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var _createClass2 = require('_babel-runtime@6.26.0@babel-runtime/helpers/createClass');
+var _createClass2 = require('babel-runtime/helpers/createClass');
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _possibleConstructorReturn2 = require('_babel-runtime@6.26.0@babel-runtime/helpers/possibleConstructorReturn');
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
 
 var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
 
-var _inherits2 = require('_babel-runtime@6.26.0@babel-runtime/helpers/inherits');
+var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
@@ -29,7 +29,7 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _document = require('_next@4.2.0@next\\dist\\server\\document.js');
+var _document = require('next\\dist\\server\\document.js');
 
 var _document2 = _interopRequireDefault(_document);
 
@@ -39,7 +39,7 @@ var _server2 = _interopRequireDefault(_server);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _jsxFileName = 'E:\\VS_NODE\\react-ssr\\pages\\_document.js?entry';
+var _jsxFileName = 'D:\\WORK\\react-ssr\\pages\\_document.js?entry';
 
 
 var MyDocument = function (_Document) {
@@ -54,42 +54,65 @@ var MyDocument = function (_Document) {
   (0, _createClass3.default)(MyDocument, [{
     key: 'render',
     value: function render() {
-      return _react2.default.createElement('html', {
-        __source: {
+      return _react2.default.createElement('html', { lang: 'en', __source: {
           fileName: _jsxFileName,
-          lineNumber: 13
+          lineNumber: 18
         }
       }, _react2.default.createElement(_document.Head, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 14
+          lineNumber: 19
         }
       }, _react2.default.createElement('meta', { charSet: 'utf-8', __source: {
           fileName: _jsxFileName,
-          lineNumber: 15
+          lineNumber: 20
         }
-      }), _react2.default.createElement('meta', { name: 'viewport', content: 'width=device-width,minimum-scale=1', __source: {
+      }), _react2.default.createElement('script', { src: 'https://cdn.bootcss.com/moment.js/2.17.1/moment.min.js', __source: {
           fileName: _jsxFileName,
-          lineNumber: 16
+          lineNumber: 21
         }
-      }), _react2.default.createElement('link', { rel: 'stylesheet', href: 'https://cdn.bootcss.com/antd-mobile/2.1.0/antd-mobile.min.css', __source: {
+      }), _react2.default.createElement('script', { src: 'https://cdn.bootcss.com/moment.js/2.17.1/locale/zh-cn.js', __source: {
           fileName: _jsxFileName,
-          lineNumber: 17
+          lineNumber: 22
+        }
+      }), _react2.default.createElement('script', { src: 'https://cdn.bootcss.com/node-uuid/1.4.8/uuid.min.js', __source: {
+          fileName: _jsxFileName,
+          lineNumber: 23
+        }
+      }), _react2.default.createElement('script', { src: 'https://res.wx.qq.com/open/js/jweixin-1.2.0.js', __source: {
+          fileName: _jsxFileName,
+          lineNumber: 24
+        }
+      }), _react2.default.createElement('script', { src: '/static/scripts/hd.js', __source: {
+          fileName: _jsxFileName,
+          lineNumber: 25
+        }
+      }), _react2.default.createElement('script', { src: '/static/scripts/local-storage.js', __source: {
+          fileName: _jsxFileName,
+          lineNumber: 26
+        }
+      }), _react2.default.createElement('link', { rel: 'stylesheet', href: '/static/styles/antd_mobile_min.css', __source: {
+          fileName: _jsxFileName,
+          lineNumber: 27
+        }
+      }), _react2.default.createElement('link', { rel: 'stylesheet', href: '/static/styles/app_min.css', __source: {
+          fileName: _jsxFileName,
+          lineNumber: 28
         }
       })), _react2.default.createElement('body', {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 19
+          lineNumber: 30
         }
       }, this.props.customValue, _react2.default.createElement(_document.Main, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 21
+          lineNumber: 32
         }
       }), _react2.default.createElement(_document.NextScript, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 22
+          lineNumber: 33
         }
       })));
     }
@@ -105,7 +128,9 @@ var MyDocument = function (_Document) {
           chunks = _renderPage.chunks;
 
       var styles = (0, _server2.default)();
-      return { html: html, head: head, errorHtml: errorHtml, chunks: chunks, styles: styles };
+      return {
+        html: html, head: head, errorHtml: errorHtml, chunks: chunks, styles: styles
+      };
     }
   }]);
 
@@ -113,4 +138,4 @@ var MyDocument = function (_Document) {
 }(_document2.default);
 
 exports.default = MyDocument;
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhZ2VzXFxfZG9jdW1lbnQuanMiXSwibmFtZXMiOlsiRG9jdW1lbnQiLCJIZWFkIiwiTWFpbiIsIk5leHRTY3JpcHQiLCJmbHVzaCIsIk15RG9jdW1lbnQiLCJwcm9wcyIsImN1c3RvbVZhbHVlIiwicmVuZGVyUGFnZSIsImh0bWwiLCJoZWFkIiwiZXJyb3JIdG1sIiwiY2h1bmtzIiwic3R5bGVzIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBQUEsQUFBTyxBQUFZLEFBQU0sQUFBTTs7OztBQUMvQixBQUFPOzs7Ozs7Ozs7SSxBQUVjOzs7Ozs7Ozs7Ozs2QkFPVixBQUNQOzZCQUNFLGNBQUE7O29CQUFBO3NCQUFBLEFBQ0U7QUFERjtBQUFBLE9BQUEsa0JBQ0UsQUFBQzs7b0JBQUQ7c0JBQUEsQUFDSTtBQURKO0FBQUEsaURBQ1UsU0FBTixBQUFjO29CQUFkO3NCQURKLEFBQ0ksQUFDQTtBQURBO2tEQUNNLE1BQU4sQUFBVyxZQUFXLFNBQXRCLEFBQThCO29CQUE5QjtzQkFGSixBQUVJLEFBQ0E7QUFEQTtrREFDTSxLQUFOLEFBQVUsY0FBYSxNQUF2QixBQUE0QjtvQkFBNUI7c0JBSk4sQUFDRSxBQUdJLEFBRUo7QUFGSTsyQkFFSixjQUFBOztvQkFBQTtzQkFBQSxBQUNHO0FBREg7QUFBQSxjQUNHLEFBQUssTUFEUixBQUNjLEFBQ1osNkJBQUEsQUFBQzs7b0JBQUQ7c0JBRkYsQUFFRSxBQUNBO0FBREE7QUFBQSwwQkFDQSxBQUFDOztvQkFBRDtzQkFWTixBQUNFLEFBTUUsQUFHRSxBQUlQO0FBSk87QUFBQTs7OzswQ0FqQitCO1VBQWQsQUFBYyxrQkFBZCxBQUFjOzt3QkFBQSxBQUNLO1VBREwsQUFDN0IsbUJBRDZCLEFBQzdCO1VBRDZCLEFBQ3ZCLG1CQUR1QixBQUN2QjtVQUR1QixBQUNqQix3QkFEaUIsQUFDakI7VUFEaUIsQUFDTixxQkFETSxBQUNOLEFBQy9COztVQUFNLFNBQU4sQUFBZSxBQUNmO2FBQU8sRUFBRSxNQUFGLE1BQVEsTUFBUixNQUFjLFdBQWQsV0FBeUIsUUFBekIsUUFBaUMsUUFBeEMsQUFBTyxBQUNSOzs7OztBQUxxQyxBOztrQkFBbkIsQSIsImZpbGUiOiJfZG9jdW1lbnQuanM/ZW50cnkiLCJzb3VyY2VSb290IjoiRTovVlNfTk9ERS9yZWFjdC1zc3IifQ==
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhZ2VzXFxfZG9jdW1lbnQuanMiXSwibmFtZXMiOlsiUmVhY3QiLCJEb2N1bWVudCIsIkhlYWQiLCJNYWluIiwiTmV4dFNjcmlwdCIsImZsdXNoIiwiTXlEb2N1bWVudCIsInByb3BzIiwiY3VzdG9tVmFsdWUiLCJyZW5kZXJQYWdlIiwiaHRtbCIsImhlYWQiLCJlcnJvckh0bWwiLCJjaHVua3MiLCJzdHlsZXMiXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUFBLEFBQU87Ozs7QUFDUCxBQUFPLEFBQVksQUFBTSxBQUFNOzs7O0FBQy9CLEFBQU87Ozs7Ozs7OztJQUVjLEE7Ozs7Ozs7Ozs7OzZCQVdWLEFBQ1A7NkJBQ0UsY0FBQSxVQUFNLE1BQU4sQUFBVztvQkFBWDtzQkFBQSxBQUNFO0FBREY7T0FBQSxrQkFDRSxBQUFDOztvQkFBRDtzQkFBQSxBQUNFO0FBREY7QUFBQSxpREFDUSxTQUFOLEFBQWM7b0JBQWQ7c0JBREYsQUFDRSxBQUNBO0FBREE7b0RBQ1EsS0FBUixBQUFZO29CQUFaO3NCQUZGLEFBRUUsQUFDQTtBQURBO29EQUNRLEtBQVIsQUFBWTtvQkFBWjtzQkFIRixBQUdFLEFBQ0E7QUFEQTtvREFDUSxLQUFSLEFBQVk7b0JBQVo7c0JBSkYsQUFJRSxBQUNBO0FBREE7b0RBQ1EsS0FBUixBQUFZO29CQUFaO3NCQUxGLEFBS0UsQUFDQTtBQURBO29EQUNRLEtBQVIsQUFBWTtvQkFBWjtzQkFORixBQU1FLEFBQ0E7QUFEQTtvREFDUSxLQUFSLEFBQVk7b0JBQVo7c0JBUEYsQUFPRSxBQUNBO0FBREE7a0RBQ00sS0FBTixBQUFVLGNBQWEsTUFBdkIsQUFBNEI7b0JBQTVCO3NCQVJGLEFBUUUsQUFDQTtBQURBO2tEQUNNLEtBQU4sQUFBVSxjQUFhLE1BQXZCLEFBQTRCO29CQUE1QjtzQkFWSixBQUNFLEFBU0UsQUFFRjtBQUZFOzJCQUVGLGNBQUE7O29CQUFBO3NCQUFBLEFBQ0c7QUFESDtBQUFBLGNBQ0csQUFBSyxNQURSLEFBQ2MsQUFDWiw2QkFBQSxBQUFDOztvQkFBRDtzQkFGRixBQUVFLEFBQ0E7QUFEQTtBQUFBLDBCQUNBLEFBQUM7O29CQUFEO3NCQWhCTixBQUNFLEFBWUUsQUFHRSxBQUlQO0FBSk87QUFBQTs7OzswQ0EzQitCO1VBQWQsQUFBYyxrQkFBZCxBQUFjOzt3QkFBQSxBQUdqQztVQUhpQyxBQUVuQyxtQkFGbUMsQUFFbkM7VUFGbUMsQUFFN0IsbUJBRjZCLEFBRTdCO1VBRjZCLEFBRXZCLHdCQUZ1QixBQUV2QjtVQUZ1QixBQUVaLHFCQUZZLEFBRVosQUFFekI7O1VBQU0sU0FBTixBQUFlLEFBQ2Y7O2NBQU8sTUFDQyxNQURELE1BQ08sV0FEUCxXQUNrQixRQURsQixRQUMwQixRQURqQyxBQUFPLEFBR1I7QUFIUSxBQUNMOzs7OztBQVBrQyxBOztrQkFBbkIsQSIsImZpbGUiOiJfZG9jdW1lbnQuanM/ZW50cnkiLCJzb3VyY2VSb290IjoiRDovV09SSy9yZWFjdC1zc3IifQ==

@@ -1,0 +1,25 @@
+# EditorConfig is awesome: http://EditorConfig.org
+# EditorConfig 帮助开发者在不同的编辑器和IDE中保持一致的代码风格
+# 为了支持该文件保存后自动执行，请先下载该 EditorConfig for Vs Code
+
+# top-most EditorConfig file
+root = true
+
+# 应用于所有文件
+[*]
+
+charset = utf-8
+
+# 首行缩进
+indent_style = space
+indent_size = 2
+
+# 关于换行符的介绍 http://blog.csdn.net/timberwolf_2012/article/details/28687477
+end_of_line = lf
+# 在文件的最后需要有换行回车
+insert_final_newline = true
+# 去除每行末尾的空白符
+trim_trailing_whitespace = true
+
+[*.json]
+indent_size = 4

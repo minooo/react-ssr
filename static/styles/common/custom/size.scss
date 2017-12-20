@@ -1,0 +1,98 @@
+// scss 语法参考 http://www.w3cplus.com/sassguide/syntax.html
+// 公用的间距样式
+// 通用的padding margin值 从0.05rem到0.3rem 步进为5
+@for $i from 1 through 6 {
+    .ptb#{$i * 5}, .pt#{$i * 5} {
+        padding-top: $i * 5 * 0.01rem
+    }
+    .ptb#{$i * 5}, .pb#{$i * 5} {
+        padding-bottom: $i * 5 * 0.01rem;
+    }
+    .plr#{$i * 5}, .pl#{$i * 5} {
+        padding-left: $i * 5 * 0.01rem;
+    }
+    .plr#{$i * 5}, .pr#{$i * 5} {
+        padding-right: $i * 5 * 0.01rem;
+    }
+    .mt#{$i * 5} {
+        margin-top: $i * 5 * 0.01rem;
+    }
+    .mb#{$i * 5} {
+        margin-bottom: $i * 5 * 0.01rem;
+    }
+    .ml#{$i * 5} {
+        margin-left: $i * 5 * 0.01rem;
+    }
+    .mr#{$i * 5} {
+        margin-right: $i * 5 * 0.01rem;
+    }
+}
+
+.mr12 {
+  margin-right: 0.12rem;
+}
+.mb50 {
+  margin-bottom: 0.5rem;
+}
+
+//通用的字体大小 从 8 到 48，步进为2
+@for $i from 4 through 24 {
+    .font#{$i * 2} {
+        font-size: $i * 2 * 0.01rem;
+    }
+}
+
+.font56 {
+  font-size: 0.56rem;
+}
+
+// 宽度，高度
+// 宽高，从0.2rem 到 1.2rem, 步进为2px
+@for $i from 10 through 60 {
+    .h#{$i * 2} {
+        height: $i * 2 * 0.01rem;
+    }
+    .w#{$i * 2} {
+        width: $i * 2 * 0.01rem;
+    }
+}
+.w130 {
+  width: 1.3rem;
+}
+.w140 {
+  width: 1.4rem;
+}
+.w160 {
+  width: 1.6rem;
+}
+.w182 {
+  width: 1.82rem;
+}
+.w200 {
+  width: 2rem;
+}
+.w-100 {
+    width: 100%;
+}
+
+.h-100 {
+    height: 100%;
+}
+
+.h-full {
+    height: 100vh;
+}
+
+// radius，从0.02rem 到 0.12rem, 步进为 0.02
+@for $i from 1 through 6 {
+    .r#{$i * 2} {
+        border-radius: $i * 2 * 0.01rem;
+    }
+}
+// 为了实现左右圆角
+.r100 {
+    border-radius: 1rem;
+}
+.circle {
+    border-radius: 50%;
+}

@@ -1,0 +1,63 @@
+// 公用的动画样式
+// https://daneden.github.io/animate.css/
+
+.bounceIn {
+  animation-name: bounceIn;
+  animation-duration: .75s;
+}
+
+@keyframes bounceIn {
+  from, 20%, 40%, 60%, 80%, to {
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+
+  0% {
+    opacity: 0;
+    transform: scale3d(.3, .3, .3);
+  }
+
+  20% {
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  40% {
+    transform: scale3d(.9, .9, .9);
+  }
+
+  60% {
+    opacity: 1;
+    transform: scale3d(1.03, 1.03, 1.03);
+  }
+
+  80% {
+    transform: scale3d(.97, .97, .97);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+// 旋转
+.rotate {
+    animation: rotate360 1s linear infinite;
+}
+@keyframes rotate360 {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.transition {
+    transition: all 1s;
+    transition-timing-function:ease-in;
+}
+
+.search-btn-ani {
+    transition: margin-right 0.3s, opacity 0.3s;
+    transition-delay: 0.1s;
+}

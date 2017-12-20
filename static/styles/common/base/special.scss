@@ -1,0 +1,156 @@
+// 一些特殊的css3样式
+comon
+.log-bg {
+  background-color: #f3f3f3;
+  background-image: url("../../images/logo.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+// 顶部阴影
+.border-top-shadow {
+  box-shadow: 0 -0.03rem 0.06rem #e2e2e2;
+}
+
+// home
+.home-message-box {
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+  left: 0;
+  bottom: 0;
+  transform: translateY(50%);
+}
+.home-message {
+  box-shadow: 0 0.03rem 0.06rem #ededed;
+}
+.home-limit-right-border {
+  border-right: 1px dashed #ddd;
+  &:last-child {
+    border-right: none;
+  }
+}
+.home-lt-box:after {
+  content: '';
+  padding: 0.05rem;
+}
+.home-lt-box-title {
+  position: absolute;
+  width: 100%;
+  top: 0.25rem;
+  text-shadow: 1px 1px 2px #666;
+}
+.home-lt-box-caption {
+  position: absolute;
+  width: 100%;
+  top: 0.73rem;
+}
+.home-loan-type-bg-0 {
+  background: url('../../images/loan_type_0.png') 0 0 no-repeat;
+  background-size: 100%;
+}
+.home-loan-type-bg-1 {
+  background: url('../../images/loan_type_1.png') 0 0 no-repeat;
+  background-size: 100%;
+}
+.home-loan-type-bg-2 {
+  background: url('../../images/loan_type_2.png') 0 0 no-repeat;
+  background-size: 100%;
+}
+.home-product-list-tip {
+  border: 1px solid #4c8dfc;
+  height: 0.28rem;
+  line-height: 0.26rem;
+}
+.home-product-list-hot {
+  position: absolute;
+  z-index: 10;
+  top: 0.22rem;
+  right: 0;
+  line-height: 0.36rem;
+  padding-left: 0.12rem;
+  border-radius: 0.4rem 0 0 0.4rem;
+}
+.home-product-list-hide {
+  position: relative;
+  &:before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    content: '';
+    width: 0.3rem;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255,1))
+  }
+}
+.home-foot-text {
+  text-shadow: 1px 1px 1px #fff;
+}
+
+// loan
+.loan-detail-top {
+  height: 2.65rem;
+  background: url('../../images/loan_detail_bg.png') 0 0 no-repeat;
+  background-size: 100% 100%;
+}
+.loan-detail-top-box {
+  padding-left: 0.4rem;
+  height: 2.25rem;
+  background: linear-gradient(135deg, #4c8dfc, #6ea3ff);
+  box-shadow: 0 0 0.2rem #666;
+}
+.loan-detail-top-tag {
+  border-radius: 1rem 0 0  1rem;
+  height: 0.38rem;
+  line-height: 0.38rem;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+.loan-detail-top-tip {
+  height: 0.32rem;
+  line-height: 0.32rem;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+.loan-detail-alert {
+  position: fixed;
+  z-index: 30;
+  left: 0.25rem;
+  right: 0.2rem;
+  max-height: 5rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.loan-set-input-right .am-input-control input {
+  text-align: right;
+}
+
+// card
+.card-list-bg {
+  height: 18.133vw;
+  max-height: 1.8133rem;
+  background: url('../../images/card_list_bg.png') 0 0 no-repeat;
+  background-size: 100%;
+}
+.card-title {
+  line-height: 0.36rem;
+  border-left: 0.06rem solid #4c8dfc;
+}
+.card-top-bg {
+  background-image: url('../../images/card_bg.png');
+  background-position: 0 bottom;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+// card-detail
+.card-detail-bg {
+  background-image: url('../../images/card_detail_bg.png');
+  background-position: 0 bottom;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.card-detail-top {
+  width: 55.333vw;
+  max-width: 5.533rem;
+  height: 34.666vw;
+  max-height: 3.466rem;
+}

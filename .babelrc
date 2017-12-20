@@ -1,18 +1,26 @@
-{   
+{
     "presets": ["next/babel"],
     "plugins": [
         "transform-decorators-legacy",
+        ["import", { "libraryName": "antd-mobile" }],
         [
             "transform-runtime",
             {
               "helpers": false,
-              // 项目完成后，自行对比 该项为false 和 true 时打包的大小，以此择优
               "polyfill": true,
-              //  如果你的项目不需要转换 Promise, Set, Map, Symbol等，就为 false
               "regenerator": true,
-              // 如果你的项目不需要转换 generator ，await 就为false
               "moduleName": "babel-runtime"
             }
+        ],
+        [
+          "module-resolver",
+          {
+            "alias": {
+              "@components": "./pages/1-components/index.js",
+              "@utils": "./pages/5-utils/index.js",
+              "@actions": "./pages/3-actions/index.js"
+            }
+          }
         ]
     ]
 }
