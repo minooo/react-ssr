@@ -1,16 +1,27 @@
 import React, { Component } from 'react'
 import { Button } from 'antd-mobile'
-import { WrapLink } from '@components'
+import { Layout, Nav } from '@components'
+import { http } from '@utils'
 
 export default class extends Component {
+  static async getInitialProps() {
+    // eslint-disable-next-line no-undef
+    // const res = await http.get('https://api.github.com/repos/developit/preact')
+    // const json = await res
+    return { stars: 123 }
+  }
   state={}
+  componentDidMount() {
+    console.log(this.props, 'haha')
+  }
   render() {
     return (
-      <div>
-        <WrapLink className="c-main" path="/2-containers/01-Home/index">1234</WrapLink>
-        <i className="i-search" />
-        <Button type="primary">123345</Button>
-      </div>
+      <Layout title="首页">
+        <div className="equal">
+          123
+        </div>
+        <Nav />
+      </Layout>
     )
   }
 }

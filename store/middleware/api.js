@@ -1,4 +1,3 @@
-import { Toast } from 'antd-mobile'
 import { CALL_API, http } from '@utils'
 
 export default store => next => (action) => {
@@ -48,7 +47,6 @@ export default store => next => (action) => {
       }))
     }
   }).catch((err) => {
-    Toast.offline(`抱歉，网络错误，请稍后再试！${err}`)
     next(actionWith({
       type: failureType,
       err,

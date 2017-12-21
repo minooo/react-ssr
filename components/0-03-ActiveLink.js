@@ -1,4 +1,3 @@
-import React from 'react'
 import { withRouter } from 'next/router'
 
 // typically you want to use `next/link` for this usecase
@@ -6,16 +5,17 @@ import { withRouter } from 'next/router'
 // using the withRouter utility.
 
 const ActiveLink = ({
-  ico, text, router, href,
+  ico, text, router, href, as = href,
 }) => {
   const handleClick = (e) => {
     e.preventDefault()
-    router.push(href)
+    router.push(href, as)
   }
 
   return (
     <a
       href={href}
+      as={as}
       onClick={handleClick}
       className={`equal flex column jc-center ai-center ${router.pathname === href ? 'c-main' : 'c-ccc'}`}
     >

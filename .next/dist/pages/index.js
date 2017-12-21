@@ -5,9 +5,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _button = require('antd-mobile/lib/button');
+var _regenerator = require('babel-runtime/regenerator');
 
-var _button2 = _interopRequireDefault(_button);
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
 var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
 
@@ -33,7 +37,9 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _index = require('./1-components/index.js');
+var _index = require('../components/index.js');
+
+var _index2 = require('../utils/index.js');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -58,31 +64,56 @@ var _default = function (_Component) {
   }
 
   (0, _createClass3.default)(_default, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      console.log(this.props, 'haha');
+    }
+  }, {
     key: 'render',
     value: function render() {
-      return _react2.default.createElement('div', {
+      return _react2.default.createElement(_index.Layout, { title: '\u9996\u9875', __source: {
+          fileName: _jsxFileName,
+          lineNumber: 19
+        }
+      }, _react2.default.createElement('div', { className: 'equal', __source: {
+          fileName: _jsxFileName,
+          lineNumber: 20
+        }
+      }, '123'), _react2.default.createElement(_index.Nav, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 9
+          lineNumber: 23
         }
-      }, _react2.default.createElement(_index.WrapLink, { className: 'c-main', path: '/2-containers/01-Home/index', __source: {
-          fileName: _jsxFileName,
-          lineNumber: 10
-        }
-      }, '1234'), _react2.default.createElement('i', { className: 'i-search', __source: {
-          fileName: _jsxFileName,
-          lineNumber: 11
-        }
-      }), _react2.default.createElement(_button2.default, { type: 'primary', __source: {
-          fileName: _jsxFileName,
-          lineNumber: 12
-        }
-      }, '123345'));
+      }));
     }
+  }], [{
+    key: 'getInitialProps',
+    value: function () {
+      var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+        return _regenerator2.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                return _context.abrupt('return', { stars: 123 });
+
+              case 1:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function getInitialProps() {
+        return _ref2.apply(this, arguments);
+      }
+
+      return getInitialProps;
+    }()
   }]);
 
   return _default;
 }(_react.Component);
 
 exports.default = _default;
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhZ2VzXFxpbmRleC5qcyJdLCJuYW1lcyI6WyJSZWFjdCIsIkNvbXBvbmVudCIsIldyYXBMaW5rIiwic3RhdGUiXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSxBQUFPLEFBQVM7Ozs7QUFFaEIsQUFBUzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O2dOQUdQLEEsUUFBTSxBOzs7Ozs2QkFDRyxBQUNQOzZCQUNFLGNBQUE7O29CQUFBO3NCQUFBLEFBQ0U7QUFERjtBQUFBLE9BQUEsa0JBQ0UsQUFBQyxpQ0FBUyxXQUFWLEFBQW9CLFVBQVMsTUFBN0IsQUFBa0M7b0JBQWxDO3NCQUFBO0FBQUE7U0FERixBQUNFLEFBQ0EsOENBQUcsV0FBSCxBQUFhO29CQUFiO3NCQUZGLEFBRUUsQUFDQTtBQURBOzBCQUNBLGtDQUFRLE1BQVIsQUFBYTtvQkFBYjtzQkFBQTtBQUFBO1NBSkosQUFDRSxBQUdFLEFBR0w7Ozs7O0FBVjBCLEEiLCJmaWxlIjoiaW5kZXguanM/ZW50cnkiLCJzb3VyY2VSb290IjoiRDovV09SSy9yZWFjdC1zc3IifQ==
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhZ2VzXFxpbmRleC5qcyJdLCJuYW1lcyI6WyJSZWFjdCIsIkNvbXBvbmVudCIsIkxheW91dCIsIk5hdiIsImh0dHAiLCJzdGF0ZSIsImNvbnNvbGUiLCJsb2ciLCJwcm9wcyIsInN0YXJzIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUFBLEFBQU8sQUFBUzs7OztBQUVoQixBQUFTLEFBQVE7O0FBQ2pCLEFBQVM7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztnTkFTUCxBLFFBQU0sQTs7Ozs7d0NBQ2MsQUFDbEI7Y0FBQSxBQUFRLElBQUksS0FBWixBQUFpQixPQUFqQixBQUF3QixBQUN6Qjs7Ozs2QkFDUSxBQUNQOzZCQUNFLEFBQUMsK0JBQU8sT0FBUixBQUFjO29CQUFkO3NCQUFBLEFBQ0U7QUFERjtPQUFBLGtCQUNFLGNBQUEsU0FBSyxXQUFMLEFBQWU7b0JBQWY7c0JBQUE7QUFBQTtTQURGLEFBQ0UsQUFHQSx3QkFBQSxBQUFDOztvQkFBRDtzQkFMSixBQUNFLEFBSUUsQUFHTDtBQUhLO0FBQUE7Ozs7Ozs7Ozs7aURBWkcsRUFBRSxPQUFGLEFBQVMsQTs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUxTLEEiLCJmaWxlIjoiaW5kZXguanM/ZW50cnkiLCJzb3VyY2VSb290IjoiRDovV09SSy9yZWFjdC1zc3IifQ==

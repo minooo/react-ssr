@@ -16,9 +16,9 @@
           "module-resolver",
           {
             "alias": {
-              "@components": "./pages/1-components/index.js",
-              "@utils": "./pages/5-utils/index.js",
-              "@actions": "./pages/3-actions/index.js"
+              "@components": "./components/index.js",
+              "@utils": "./utils/index.js",
+              "@actions": "./store/actions/index.js"
             }
           }
         ]

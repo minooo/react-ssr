@@ -20,12 +20,12 @@ export default class extends PureComponent {
 
   render() {
     const {
-      path, children, className, as, style, ...rest
+      href, children, className, as, style, ...rest
     } = this.props
-    if (isLink(path)) {
-      return <Link href={path} as={as}><a className={className} style={style} {...rest}>{children}</a></Link>
-    } else if (isHref(path)) {
-      return <a href={path} className={className} style={style} {...rest}>{children}</a>
+    if (isLink(href)) {
+      return <Link href={href} as={as}><a className={className} style={style} {...rest}>{children}</a></Link>
+    } else if (isHref(href)) {
+      return <a href={href} className={className} style={style} {...rest}>{children}</a>
     }
     return (
       <div

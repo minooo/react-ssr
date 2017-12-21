@@ -1,4 +1,3 @@
-import React from 'react'
 import Document, { Head, Main, NextScript } from 'next/document'
 import flush from 'styled-jsx/server'
 
@@ -20,12 +19,13 @@ export default class MyDocument extends Document {
           <meta charSet="utf-8" />
           <script src="https://cdn.bootcss.com/moment.js/2.17.1/moment.min.js" />
           <script src="https://cdn.bootcss.com/moment.js/2.17.1/locale/zh-cn.js" />
-          <script src="https://cdn.bootcss.com/node-uuid/1.4.8/uuid.min.js" />
           <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js" />
           <script src="/static/scripts/hd.js" />
           <script src="/static/scripts/local-storage.js" />
+          <script src="/static/scripts/uuid.js" />
           <link rel="stylesheet" href="/static/styles/antd_mobile_min.css" />
           <link rel="stylesheet" href="/static/styles/app_min.css" />
+          <title>有点意思</title>
         </Head>
         <body>
           {this.props.customValue}

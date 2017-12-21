@@ -1,4 +1,22 @@
-'use strict';
+"use strict";
 
-module.exports = require('next\\dist\\lib\\error.js');
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm5vZGVfbW9kdWxlc1xcbmV4dFxcZGlzdFxccGFnZXNcXF9lcnJvci5qcyJdLCJuYW1lcyI6WyJtb2R1bGUiLCJleHBvcnRzIiwicmVxdWlyZSJdLCJtYXBwaW5ncyI6Ijs7QUFBQSxPQUFPLEFBQVAsVUFBaUIsQUFBakIiLCJmaWxlIjoiX2Vycm9yLmpzP2VudHJ5Iiwic291cmNlUm9vdCI6IkQ6L1dPUksvcmVhY3Qtc3NyIn0=
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _jsxFileName = "D:\\WORK\\react-ssr\\pages\\_error.js?entry";
+
+exports.default = function (data) {
+  return _react2.default.createElement("div", { className: "c-main font28", __source: {
+      fileName: _jsxFileName,
+      lineNumber: 2
+    }
+  }, "4041111", console.log(data));
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhZ2VzXFxfZXJyb3IuanMiXSwibmFtZXMiOlsiY29uc29sZSIsImxvZyIsImRhdGEiXSwibWFwcGluZ3MiOiI7Ozs7OztBQUFBOzs7Ozs7OztrQkFBZSxnQkFBQTt5QkFDYixjQUFBLFNBQUssV0FBTCxBQUFlO2dCQUFmO2tCQUFBO0FBQUE7R0FBQSxFQUF1QyxtQkFBQSxBQUFRLElBRGxDLEFBQ2IsQUFBdUMsQUFBWTtBQURyRCIsImZpbGUiOiJfZXJyb3IuanM/ZW50cnkiLCJzb3VyY2VSb290IjoiRDovV09SSy9yZWFjdC1zc3IifQ==
