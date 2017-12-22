@@ -9,10 +9,11 @@ function createRequestTypes(base) {
 // 首页
 // 获取首页数据
 export const HOME = createRequestTypes('HOME')
-export const getHome = () => ({
+export const getHome = ctx => ({
   [CALL_API]: {
     types: HOME,
     endpoint: 'home',
+    ctx,
   },
 })
 // 获取热门搜索

@@ -18,7 +18,8 @@
             "alias": {
               "@components": "./components/index.js",
               "@utils": "./utils/index.js",
-              "@actions": "./store/actions/index.js"
+              "@actions": "./store/actions/index.js",
+              "@reduxPage": "./store/reduxPage.js"
             }
           }
         ]

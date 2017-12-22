@@ -9,7 +9,7 @@ export default store => next => (action) => {
   // 注意，总共五个参数
   let { endpoint } = callAPI
   const {
-    types, params, method = 'get', options,
+    types, params, method = 'get', ctx, options,
   } = callAPI
 
   if (typeof endpoint === 'function') {
@@ -33,7 +33,7 @@ export default store => next => (action) => {
   // 开始请求
   next(actionWith({ type: requestType }))
   // 异步处理
-  return http.callApi(endpoint, method, params, options).then((response) => {
+  return http.callApi(endpoint, method, params, ctx, options).then((response) => {
     // 根据我司数据接口特点特此改造
     if (response.code === 200 && response.success) {
       next(actionWith({

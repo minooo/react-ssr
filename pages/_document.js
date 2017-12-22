@@ -22,7 +22,6 @@ export default class MyDocument extends Document {
           <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js" />
           <script src="/static/scripts/hd.js" />
           <script src="/static/scripts/local-storage.js" />
-          <script src="/static/scripts/uuid.js" />
           <link rel="stylesheet" href="/static/styles/antd_mobile_min.css" />
           <link rel="stylesheet" href="/static/styles/app_min.css" />
           <title>有点意思</title>

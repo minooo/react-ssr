@@ -5,7 +5,7 @@ import withRedux from 'next-redux-wrapper'
 import apiMiddleware from './middleware/api'
 import rootReducers from './reducers'
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose // eslint-disable-line
+const composeEnhancers = compose // eslint-disable-line
 
 // 产品模式
 function configureStorePro(initialState) {
@@ -20,7 +20,7 @@ function configureStorePro(initialState) {
 
 // 开发模式
 function configureStoreDev(initialState) {
-  const middlewares = [thunkMiddleware, logger, apiMiddleware]
+  const middlewares = [thunkMiddleware, apiMiddleware, logger]
   const store = createStore(
     rootReducers,
     initialState,

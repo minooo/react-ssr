@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Button } from 'antd-mobile'
-import { Layout, Nav } from '@components'
+import { Layout, Nav, WithData } from '@components'
 import { http } from '@utils'
 
+@WithData
 export default class extends Component {
   static async getInitialProps() {
     // eslint-disable-next-line no-undef
