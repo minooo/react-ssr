@@ -5,10 +5,9 @@ import cookie from 'cookie'
 // const myApi = 'https://www.easy-mock.com/mock/58fff6e5739ac1685205acb1/data/'
 // const token = cache.getItem('user_token')
 
-
 const serializeHeaders = ctx => ({
   'User-Agent': ctx.req.headers['user-agent'],
-  Token: cookie(ctx.req.headers.cookie).token || '',
+  Token: ctx.req.headers.cookie ? cookie(ctx.req.headers.cookie).token : '',
 })
 
 const callApi = (url, method, data, ctx = {}, options = {}) => {

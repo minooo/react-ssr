@@ -1,28 +1,58 @@
 import React, { Component } from 'react'
-import { Button } from 'antd-mobile'
-import { Layout, Nav, WithData } from '@components'
+import withRedux from 'next-redux-wrapper'
+import reduxPage from '@reduxPage'
+import { Error } from '@components'
+import { getHome, fetchOnce } from '@actions'
 import { http } from '@utils'
+import Home from '../tryHome'
+const util = require('util')
 
-@WithData
-export default class extends Component {
-  static async getInitialProps() {
-    // eslint-disable-next-line no-undef
-    // const res = await http.get('https://api.github.com/repos/developit/preact')
-    // const json = await res
-    return { stars: 123 }
+class HH extends Component {
+  static async getInitialProps(ctx) {
+    const { store } = ctx
+    // if (!store.getState().fetchOnce) {
+    //   store.dispatch(fetchOnce())
+    //   store.dispatch(getHome(ctx))
+    // }
+    // setTimeout(() => {
+    //   return { homea: 'homepppp11' }
+    // },2000)
+    // const res = await http.callApi('home1', 'get', {}, ctx)
+    // if (!res.data && ctx.res) {
+    //   ctx.res.statusCode = 404
+    // }
+    // return { data: res.data }
+
+
+    // const data = await http.callApi('home1', 'get', {}, ctx)
+    // if ((!data || !data.data) && ctx && ctx.res) ctx.res.statusCode = 404
+    // ctx.res.end('11')
+    // return { data: data.data }
+
+    try {
+      const res = await http.callApi('home', 'get', {}, ctx)
+      const data = res.data
+      return { data }
+    } catch (error) {
+      // ctx.res.statusCode = 404
+      // ctx.res.end('Not found')
+      const err = util.inspect(error)
+      return { err }
+    }
   }
-  state={}
+
   componentDidMount() {
-    console.log(this.props, 'haha')
+    console.log(this.props, 'pageDid')
   }
+
   render() {
+    if (!this.props.data) {
+      return <div>123{console.log(this.props.err)}</div>
+    }
     return (
-      <Layout title="首页">
-        <div className="equal">
-          123
-        </div>
-        <Nav />
-      </Layout>
+      <Home {...this.props} />
     )
   }
 }
+
+export default withRedux(reduxPage, state => ({ home: state.home }))(HH)

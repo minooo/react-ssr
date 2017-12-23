@@ -3,7 +3,6 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = undefined;
 
 var _regenerator = require('babel-runtime/regenerator');
 
@@ -12,6 +11,10 @@ var _regenerator2 = _interopRequireDefault(_regenerator);
 var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
 
 var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
 
@@ -37,83 +40,129 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _nextReduxWrapper = require('next-redux-wrapper');
+
+var _nextReduxWrapper2 = _interopRequireDefault(_nextReduxWrapper);
+
+var _reduxPage = require('../store/reduxPage.js');
+
+var _reduxPage2 = _interopRequireDefault(_reduxPage);
+
 var _index = require('../components/index.js');
 
-var _index2 = require('../utils/index.js');
+var _index2 = require('../store/actions/index.js');
+
+var _index3 = require('../utils/index.js');
+
+var _tryHome = require('../tryHome');
+
+var _tryHome2 = _interopRequireDefault(_tryHome);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _class,
-    _jsxFileName = 'D:\\WORK\\react-ssr\\pages\\index.js?entry';
+var _jsxFileName = 'E:\\VS_NODE\\react-ssr\\pages\\index.js?entry';
 
-var _default = (0, _index.WithData)(_class = function (_Component) {
-  (0, _inherits3.default)(_default, _Component);
+var util = require('util');
 
-  function _default() {
-    var _ref;
+var HH = function (_Component) {
+  (0, _inherits3.default)(HH, _Component);
 
-    var _temp, _this, _ret;
+  function HH() {
+    (0, _classCallCheck3.default)(this, HH);
 
-    (0, _classCallCheck3.default)(this, _default);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = _default.__proto__ || (0, _getPrototypeOf2.default)(_default)).call.apply(_ref, [this].concat(args))), _this), _this.state = {}, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
+    return (0, _possibleConstructorReturn3.default)(this, (HH.__proto__ || (0, _getPrototypeOf2.default)(HH)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(_default, [{
+  (0, _createClass3.default)(HH, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      console.log(this.props, 'haha');
+      console.log(this.props, 'pageDid');
     }
   }, {
     key: 'render',
     value: function render() {
-      return _react2.default.createElement(_index.Layout, { title: '\u9996\u9875', __source: {
-          fileName: _jsxFileName,
-          lineNumber: 20
-        }
-      }, _react2.default.createElement('div', { className: 'equal', __source: {
-          fileName: _jsxFileName,
-          lineNumber: 21
-        }
-      }, '123'), _react2.default.createElement(_index.Nav, {
+      if (!this.props.data) {
+        return _react2.default.createElement('div', {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 50
+          }
+        }, '123', console.log(this.props.err));
+      }
+      return _react2.default.createElement(_tryHome2.default, (0, _extends3.default)({}, this.props, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 24
+          lineNumber: 53
         }
       }));
     }
   }], [{
     key: 'getInitialProps',
     value: function () {
-      var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(ctx) {
+        var store, res, data, err;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                return _context.abrupt('return', { stars: 123 });
+                store = ctx.store;
+                // if (!store.getState().fetchOnce) {
+                //   store.dispatch(fetchOnce())
+                //   store.dispatch(getHome(ctx))
+                // }
+                // setTimeout(() => {
+                //   return { homea: 'homepppp11' }
+                // },2000)
+                // const res = await http.callApi('home1', 'get', {}, ctx)
+                // if (!res.data && ctx.res) {
+                //   ctx.res.statusCode = 404
+                // }
+                // return { data: res.data }
 
-              case 1:
+
+                // const data = await http.callApi('home1', 'get', {}, ctx)
+                // if ((!data || !data.data) && ctx && ctx.res) ctx.res.statusCode = 404
+                // ctx.res.end('11')
+                // return { data: data.data }
+
+                _context.prev = 1;
+                _context.next = 4;
+                return _index3.http.callApi('home', 'get', {}, ctx);
+
+              case 4:
+                res = _context.sent;
+                data = res.data;
+                return _context.abrupt('return', { data: data });
+
+              case 9:
+                _context.prev = 9;
+                _context.t0 = _context['catch'](1);
+
+                // ctx.res.statusCode = 404
+                // ctx.res.end('Not found')
+                err = util.inspect(_context.t0);
+                return _context.abrupt('return', { err: err });
+
+              case 13:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, this);
+        }, _callee, this, [[1, 9]]);
       }));
 
-      function getInitialProps() {
-        return _ref2.apply(this, arguments);
+      function getInitialProps(_x) {
+        return _ref.apply(this, arguments);
       }
 
       return getInitialProps;
     }()
   }]);
 
-  return _default;
-}(_react.Component)) || _class;
+  return HH;
+}(_react.Component);
 
-exports.default = _default;
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhZ2VzXFxpbmRleC5qcyJdLCJuYW1lcyI6WyJSZWFjdCIsIkNvbXBvbmVudCIsIkxheW91dCIsIk5hdiIsIldpdGhEYXRhIiwiaHR0cCIsInN0YXRlIiwiY29uc29sZSIsImxvZyIsInByb3BzIiwic3RhcnMiXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBQUEsQUFBTyxBQUFTOzs7O0FBRWhCLEFBQVMsQUFBUSxBQUFLOztBQUN0QixBQUFTOzs7Ozs7O2VBRVIsQTs7Ozs7Ozs7Ozs7Ozs7Z05BUUMsQSxRLEFBQU07Ozs7O3dDQUNjLEFBQ2xCO2NBQUEsQUFBUSxJQUFJLEtBQVosQUFBaUIsT0FBakIsQUFBd0IsQUFDekI7Ozs7NkJBQ1EsQUFDUDs2QkFDRSxBQUFDLCtCQUFPLE9BQVIsQUFBYztvQkFBZDtzQkFBQSxBQUNFO0FBREY7T0FBQSxrQkFDRSxjQUFBLFNBQUssV0FBTCxBQUFlO29CQUFmO3NCQUFBO0FBQUE7U0FERixBQUNFLEFBR0Esd0JBQUEsQUFBQzs7b0JBQUQ7c0JBTEosQUFDRSxBQUlFLEFBR0w7QUFISztBQUFBOzs7Ozs7Ozs7O2lEQVpHLEVBQUUsT0FBRixBQUFTLEE7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFMUyxBIiwiZmlsZSI6ImluZGV4LmpzP2VudHJ5Iiwic291cmNlUm9vdCI6IkQ6L1dPUksvcmVhY3Qtc3NyIn0=
+exports.default = (0, _nextReduxWrapper2.default)(_reduxPage2.default, function (state) {
+  return { home: state.home };
+})(HH);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhZ2VzXFxpbmRleC5qcyJdLCJuYW1lcyI6WyJSZWFjdCIsIkNvbXBvbmVudCIsIndpdGhSZWR1eCIsInJlZHV4UGFnZSIsIkVycm9yIiwiZ2V0SG9tZSIsImZldGNoT25jZSIsImh0dHAiLCJIb21lIiwidXRpbCIsInJlcXVpcmUiLCJISCIsImNvbnNvbGUiLCJsb2ciLCJwcm9wcyIsImRhdGEiLCJlcnIiLCJjdHgiLCJzdG9yZSIsImNhbGxBcGkiLCJyZXMiLCJpbnNwZWN0IiwiaG9tZSIsInN0YXRlIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUFBLEFBQU8sQUFBUzs7OztBQUNoQixBQUFPOzs7O0FBQ1AsQUFBTzs7OztBQUNQLEFBQVM7O0FBQ1QsQUFBUyxBQUFTOztBQUNsQixBQUFTOztBQUNULEFBQU87Ozs7Ozs7O0FBQ1AsSUFBTSxPQUFOLEFBQU0sQUFBTzs7SUFFUCxBOzs7Ozs7Ozs7Ozt3Q0FrQ2dCLEFBQ2xCO2NBQUEsQUFBUSxJQUFJLEtBQVosQUFBaUIsT0FBakIsQUFBd0IsQUFDekI7Ozs7NkJBRVEsQUFDUDtVQUFJLENBQUMsS0FBQSxBQUFLLE1BQVYsQUFBZ0IsTUFBTSxBQUNwQjsrQkFBTyxjQUFBOztzQkFBQTt3QkFBQTtBQUFBO0FBQUEsU0FBQSxFQUFTLGVBQUEsQUFBUSxJQUFJLEtBQUEsQUFBSyxNQUFqQyxBQUFPLEFBQVMsQUFBdUIsQUFDeEM7QUFDRDs2QkFDRSxBQUFDLDREQUFTLEtBQVYsQUFBZTs7b0JBQWY7c0JBREYsQUFDRSxBQUVIO0FBRkc7QUFBQSxRQUFBOzs7OzsyR0ExQ3lCLEE7Ozs7O21CQUNuQjtBLHdCQUFVLEEsSUFBVixBLEFBQ1I7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBR0E7OztBQUNBO0FBQ0E7QUFDQTs7Ozs7dUJBR29CLGFBQUEsQUFBSyxRQUFMLEFBQWEsUUFBYixBQUFxQixPQUFyQixBQUE0QixJQUE1QixBQUFnQyxBOzttQkFBNUM7QSwrQkFDQTtBLHVCQUFPLElBQUksQTtpREFDVixFQUFFLE1BQUYsQTs7OztnREFFUDs7QUFDQTtBQUNNO0Esc0JBQU0sS0FBQSxBQUFLLGlCO2lEQUNWLEVBQUUsS0FBRixBOzs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBOUJJLEFBZ0RqQixBOzt1RUFBb0MsaUJBQUE7U0FBVSxFQUFFLE1BQU0sTUFBbEIsQUFBVSxBQUFjO0FBQTdDLENBQUEsQUFBVSxFQUF6QixBQUFlLEFBQXNEIiwiZmlsZSI6ImluZGV4LmpzP2VudHJ5Iiwic291cmNlUm9vdCI6IkU6L1ZTX05PREUvcmVhY3Qtc3NyIn0=

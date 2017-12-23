@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux'
+import fetchOnce from './0-01-fetchOnce'
 import home from './1-01-home'
 // import hotSearch from './1-02-hotSearch'
 // import mySearch from './1-03-mySearch'
@@ -8,6 +9,7 @@ import home from './1-01-home'
 // import user from './4-01-user'
 
 export default combineReducers({
+  fetchOnce,
   home,
   // hotSearch,
   // mySearch,
