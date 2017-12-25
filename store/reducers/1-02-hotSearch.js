@@ -1,8 +1,8 @@
-import { HOME } from '@actions'
+import { HOT_SEARCH } from '@actions'
 
 export default (state = null, action) => {
   switch (action.type) {
-    case HOME:
+    case HOT_SEARCH:
       return {
         ...state,
         ...action.payload,

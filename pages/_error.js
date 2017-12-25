@@ -1,3 +1,3 @@
 export default data => (
-  <div className="c-main font28">4041111{console.log(data)}</div>
+  <div className="c-main font28">404，页面未找到{console.log(data)}</div>
 )

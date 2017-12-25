@@ -1,8 +1,8 @@
-import { HOME } from '@actions'
+import { CARDS_FILTER } from '@actions'
 
 export default (state = null, action) => {
   switch (action.type) {
-    case HOME:
+    case CARDS_FILTER:
       return {
         ...state,
         ...action.payload,

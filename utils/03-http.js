@@ -10,13 +10,15 @@ const serializeHeaders = ctx => ({
   Token: ctx.req.headers.cookie ? cookie(ctx.req.headers.cookie).token : '',
 })
 
+// const proApi = 'http://jr.duduapp.net/api/'
+// baseURL: ctx.isServer ? 'http://m.jrdudu.com/api/' : '/api/',
 const callApi = (url, method, data, ctx = {}, options = {}) => {
   const opts = { ...options }
   if (ctx.isServer) {
     opts.headers = serializeHeaders(ctx)
   }
   return axios(Object.assign({}, {
-    baseURL: ctx.isServer ? 'http://m.jrdudu.com/api/' : '/api/',
+    baseURL: 'http://jr.duduapp.net/api/',
     url,
     method,
     params: method === 'get' ? data : {}, // 添加在请求URL后面的参数

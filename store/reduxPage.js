@@ -31,6 +31,6 @@ function configureStoreDev(initialState) {
 
 const initStore = process.env.NODE_ENV === 'production' ? configureStorePro : configureStoreDev
 
-// export default com => withRedux(initStore)(com)
+export default com => withRedux(initStore)(com)
 
-export default initStore
+// export default initStore
