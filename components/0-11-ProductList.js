@@ -6,7 +6,7 @@ import { imgUrl, clipBigNum } from '@utils'
 export default data => (
   <WrapLink
     className={`plr25 pt25 bg-white block relative ${data.border ? 'border-bottom' : ''}`}
-    href={`/${data.isLoan} ? '/1-loan/2-detail' : '/2-card/3-detail'`}
+    href={data.isLoan ? '/1-loan/2-detail' : '/2-card/3-detail'}
     as={`/${data.isLoan ? 'loan' : 'card'}/${data.id}`}
   >
     {data.isHot && data.openHot ? <div className="home-product-list-hot bg-second c-white font24 w66 h36">热门</div> : null}

@@ -10,23 +10,7 @@ import { Layout, DetailFoot, Btn, MultiColorIco } from '@components'
 const util = require('util')
 
 export default class extends Component {
-  static async getInitialProps(ctx) {
-    const {
-      store, pathname, query, asPath,
-    } = ctx
 
-    if (1) {
-      try {
-        const loansFilterFetch = await http.callApi('loans_filter', 'get', {}, ctx)
-        const loansFilterData = loansFilterFetch.data
-      } catch (error) {
-        const err = util.inspect(error)
-        return { err }
-      }
-    }
-    console.log(ctx, 'cc')
-    return { pathname, query, asPath }
-  }
   state = {
     favorited: false,
     applyFlowpath: null,
