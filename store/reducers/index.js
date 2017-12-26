@@ -6,7 +6,7 @@ import hotSearch from './1-02-hotSearch'
 import loansFilter from './2-01-loansFilter'
 import cardsHome from './3-01-cardsHome'
 import cardsFilter from './3-02-cardsFilter'
-// import user from './4-01-user'
+import user from './4-01-user'
 
 export default combineReducers({
   fetchOnce,
@@ -16,5 +16,5 @@ export default combineReducers({
   loansFilter,
   cardsHome,
   cardsFilter,
-  // user,
+  user,
 })

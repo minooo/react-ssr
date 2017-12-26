@@ -20,27 +20,12 @@ export const getHome = payload => ({
   payload,
 })
 
-// export const HOME = createRequestTypes('HOME')
-// export const getHome = ctx => ({
-//   [CALL_API]: {
-//     types: HOME,
-//     endpoint: 'home',
-//     ctx,
-//   },
-// })
 // 获取热门搜索
 export const HOT_SEARCH = 'HOT_SEARCH'
 export const getHotSearch = payload => ({
   type: HOT_SEARCH,
   payload,
 })
-// export const HOT_SEARCH = createRequestTypes('HOT_SEARCH')
-// export const getHotSearch = () => ({
-//   [CALL_API]: {
-//     types: HOT_SEARCH,
-//     endpoint: 'search',
-//   },
-// })
 
 // 本地获取我的近期搜索
 export const GET_MY_SEARCH = 'GET_MY_SEARCH'
@@ -56,13 +41,6 @@ export const getLoansFilter = payload => ({
   type: LOANS_FILTER,
   payload,
 })
-// export const LOANS_FILTER = createRequestTypes('LOANS_FILTER')
-// export const getLoansFilter = () => ({
-//   [CALL_API]: {
-//     types: LOANS_FILTER,
-//     endpoint: 'loans_filter',
-//   },
-// })
 
 // 信用卡
 // 信用卡首页数据
@@ -71,13 +49,6 @@ export const getCardsHome = payload => ({
   type: CARDS_HOME,
   payload,
 })
-// export const CARDS_HOME = createRequestTypes('CARDS_HOME')
-// export const getCardsHome = () => ({
-//   [CALL_API]: {
-//     types: CARDS_HOME,
-//     endpoint: 'cards',
-//   },
-// })
 
 // 信用卡过滤条件
 export const CARDS_FILTER = 'CARDS_FILTER'
@@ -86,24 +57,14 @@ export const getCardsFilter = payload => ({
   payload,
 })
 
-// export const CARDS_FILTER = createRequestTypes('CARDS_FILTER')
-// export const getCardsFilter = () => ({
-//   [CALL_API]: {
-//     types: CARDS_FILTER,
-//     endpoint: 'cards_filter',
-//   },
-// })
-
 // 个人中心
 // 获取用户信息
-export const USER = createRequestTypes('USER')
-export const getUser = token => ({
-  [CALL_API]: {
-    types: USER,
-    endpoint: 'user_info',
-    params: { token },
-  },
+export const USER = 'USER'
+export const getUser = payload => ({
+  type: USER,
+  payload,
 })
+
 // 退出登陆
 export const LOGOUT = 'LOGOUT'
 export const getOut = () => ({ type: LOGOUT })

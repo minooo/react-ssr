@@ -23,6 +23,7 @@ const util = require('util')
 
 export default class extends Component {
   static async getInitialProps(ctx) {
+    // err req res pathname query asPath isServer
     const {
       store, pathname, query, asPath,
     } = ctx

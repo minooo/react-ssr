@@ -24,7 +24,7 @@ export default class MyDocument extends Document {
           <script src="/static/scripts/local-storage.js" />
           <link rel="stylesheet" href="/static/styles/antd_mobile_min.css" />
           <link rel="stylesheet" href="/static/styles/app_min.css" />
-          <title>有点意思</title>
+          <title>嘟嘟金融</title>
         </Head>
         <body>
           {this.props.customValue}

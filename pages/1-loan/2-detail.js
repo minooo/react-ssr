@@ -5,12 +5,11 @@ import Chart from 'chart.js'
 import uuid from 'uuid/v4'
 import { Toast, InputItem, Picker } from 'antd-mobile'
 import { imgUrl, http, clipPrice, clipBigNum } from '@utils'
-import { Layout, DetailFoot, Btn, MultiColorIco } from '@components'
+import { Layout, ErrorFetch, DetailFoot, Btn, MultiColorIco } from '@components'
 
 const util = require('util')
 
 export default class extends Component {
-
   state = {
     favorited: false,
     applyFlowpath: null,

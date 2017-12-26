@@ -113,3 +113,9 @@ export const imgUrl = (str) => {
   }
   return `http://jr.duduapp.net${str}`
 }
+
+export const setCookie = (key, value, expiredays = 29) => {
+  const exdate = new Date()
+  exdate.setDate(exdate.getDate() + expiredays)
+  document.cookie = `${key}=${encodeURIComponent(value)};expires=${exdate.toUTCString()}`
+}
