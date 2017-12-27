@@ -24,7 +24,7 @@ export default class extends Component {
 
     if (!store.getState().loansFilter) {
       try {
-        const loansFilterFetch = await http.callApi('loans_filter', 'get', {}, ctx)
+        const loansFilterFetch = await http.get('loans_filter')
         const loansFilterData = loansFilterFetch.data
         store.dispatch(getLoansFilter(loansFilterData))
       } catch (error) {

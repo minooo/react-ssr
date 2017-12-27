@@ -119,3 +119,24 @@ export const setCookie = (key, value, expiredays = 29) => {
   exdate.setDate(exdate.getDate() + expiredays)
   document.cookie = `${key}=${encodeURIComponent(value)};expires=${exdate.toUTCString()}`
 }
+
+export const getCookie = (key) => {
+  const reg = new RegExp(`(^| )${key}=([^;]*)(;|$)`)
+  const arr = document.cookie.match(reg)
+  if (arr) return decodeURIComponent(arr[2])
+  return null
+}
+
+export const delCookie = (key) => {
+  const exdate = new Date()
+  exdate.setTime(exdate.getTime() - 1)
+  const value = getCookie(key)
+  if (value) document.cookie = `${key}=${encodeURIComponent(value)};expires=${exdate.toUTCString()}`
+}
+
+export const getUrlLastStr = (pathStr) => {
+  if (!String(pathStr)) return ''
+  const parts = pathStr.split('/')
+  const param = parts.pop() || parts.pop()
+  return param
+}

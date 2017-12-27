@@ -11,10 +11,12 @@ import axios from 'axios'
 
 // const proApi = 'http://jr.duduapp.net/api/'
 // baseURL: ctx.isServer ? 'http://m.jrdudu.com/api/' : '/api/',
-const callApi = (url, method, data, ctx = {}, options = {}) => {
+const dev = process.env.NODE_ENV !== 'production'
+const baseURL = dev ? 'http://m.jrdudu.com/api/' : 'http://jr.duduapp.net/api/'
+const callApi = (url, method, data, options = {}) => {
   const opts = { ...options }
   return axios(Object.assign({}, {
-    baseURL: 'http://jr.duduapp.net/api/',
+    baseURL,
     url,
     method,
     params: method === 'get' ? data : {}, // 添加在请求URL后面的参数

@@ -30,7 +30,7 @@ export default class extends Component {
 
     if (!store.getState().home) {
       try {
-        const homeFetch = await http.callApi('home', 'get', {}, ctx)
+        const homeFetch = await http.get('home')
         const homeData = homeFetch.data
         store.dispatch(getHome(homeData))
       } catch (error) {
@@ -80,7 +80,8 @@ export default class extends Component {
                 home.tui_loans_banner && home.tui_loans_banner.length > 0 && home.tui_loans_banner.map(item => (
                   <WrapLink
                     key={uuid()}
-                    path={`/loan/${item.id}`}
+                    href="/1-loan/2-detail"
+                    as={`/loan/${item.id}`}
                     className="block h-100"
                   >
                     <img src={imgUrl(item.banner)} className="h-100" alt="首页banner" />
@@ -129,7 +130,8 @@ export default class extends Component {
           <Btn
             hor
             btnClass="h80 bg-white border-top row-reverse"
-            path="/card/list"
+            href="/2-card/2-list"
+            as="/card/list"
             icoClass="i-right font18 c-main"
             con={<span className="c-main font30 mr10">全部信用卡产品</span>}
           />

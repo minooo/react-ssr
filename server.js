@@ -93,3 +93,36 @@ app.prepare()
       console.info(`> Ready on http://localhost:${port}`)
     })
   })
+
+
+// function handle(middleware) {
+//   return async (ctx) => {
+//     ctx.body = await new Promise((resolve) => {
+//       const END = ctx.res.end
+
+//       // Hijack stream to set ctx.body
+//       const pipe = (stream) => {
+//         ctx.res.end = END
+//         stream.unpipe(ctx.res)
+//         resolve(stream)
+//       }
+//       ctx.res.once('pipe', pipe)
+
+//       // Monkey patch res.end to set ctx.body
+//       ctx.res.end = (body) => {
+//         ctx.res.end = END
+//         ctx.res.removeListener('pipe', pipe)
+//         resolve(body)
+//       }
+
+//       // Create res.redirect method
+//       ctx.res.redirect = (url, status, message) => {
+//         if (status) ctx.status = status
+//         ctx.redirect(url)
+//         if (message) ctx.body = message
+//       }
+
+//       middleware(ctx)
+//     })
+//   }
+// }

@@ -81,10 +81,6 @@ export default class extends Component {
     }
   }
 
-  componentDidMount() {
-    console.log(this.props, 'lala')
-  }
-
   onShowAgreement = () => {
     this.setState(pre => ({ isShowAgreement: !pre.isShowAgreement }))
   }

@@ -1,6 +1,6 @@
 export {
-  CALL_API, serializeParams, isMobile, isIOS, isAndroid, setTitle, clipPrice,
-  getSomeFromArr, searchToObj, addDefault, imgUrl, clipBigNum, setCookie,
+  CALL_API, serializeParams, isMobile, isIOS, isAndroid, setTitle, clipPrice, getSomeFromArr,
+  searchToObj, addDefault, imgUrl, clipBigNum, setCookie, getCookie, delCookie, getUrlLastStr,
 } from './01-common'
 export { default as cache } from './02-cache'
 export { default as http } from './03-http'

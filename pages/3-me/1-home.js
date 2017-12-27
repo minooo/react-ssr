@@ -5,7 +5,7 @@ import Router from 'next/router'
 import cookie from 'cookie'
 import reduxPage from '@reduxPage'
 import { getOut, getUser } from '@actions'
-import { http } from '@utils'
+import { http, delCookie } from '@utils'
 import {
   Layout,
   Nav,
@@ -17,7 +17,7 @@ import {
 
 const util = require('util')
 @reduxPage
-@connect(({ user }) => ({ user }), { getUser })
+@connect(({ user }) => ({ user }), { getUser, getOut })
 
 export default class extends Component {
   static async getInitialProps(ctx) {
@@ -29,21 +29,24 @@ export default class extends Component {
     if (req) {
       const reqCookie = req.headers.cookie
       const token = cookie.parse(String(reqCookie)).userToken
-      if (!token) {
+      if (token) {
         try {
           const userFetch = await http.get('user_info', { token })
           if (userFetch.data && userFetch.data.user) {
             store.dispatch(getUser(userFetch.data.user))
-            return { res: util.inspect(ctx) }
           }
         } catch (error) {
           const err = util.inspect(error)
           return { err }
         }
       } else {
-        return { redirect: true }
+        res.writeHead(301, {
+          Location: '/login',
+        })
+        res.end()
+        res.finished = true
       }
-    } else {
+    } else if (!req && !store.getState().user) {
       const docCookie = document.cookie
       const token = cookie.parse(String(docCookie)).userToken
       if (token) {
@@ -57,25 +60,27 @@ export default class extends Component {
           return { err }
         }
       } else {
-        Router.replace({ pathname: '/3-me/2-login', query: { href: '/3-me/1-home', as: '/me' } }, '/login')
+        Router.replace('/3-me/2-login', '/login')
       }
     }
+    return null
   }
 
-  componentDidMount() {
-    if (this.props.redirect) {
-      Router.replace({ pathname: '/3-me/2-login', query: { href: '/3-me/1-home', as: '/me' } }, '/login')
-    }
+  onLogout = () => {
+    const { getOut } = this.props
+    delCookie('userToken')
+    getOut()
+    Router.replace('/3-me/2-login', '/login')
   }
 
   render() {
     const { user, err } = this.props
     const list = [
       // { ico: 'i-me c-main', text: ['个人资料', '修改完善'], path: '/me' },
-      { ico: 'i-my-like c-me-star', text: ['我的收藏', ''], path: '/me/favorite' },
-      { ico: 'i-browsing-history c-second', text: ['浏览记录', ''], path: '/me/history' },
+      { ico: 'i-my-like c-me-star', text: ['我的收藏', ''], href: '/3-me/3-favorite', as: '/me/favorite' }, // eslint-disable-line
+      { ico: 'i-browsing-history c-second', text: ['浏览记录', ''], href: '/3-me/4-history', path: '/me/history' }, // eslint-disable-line
       // { ico: 'i-invite c-me-invite', text: ['邀请好友', ''], path: '/me' },
-      { ico: 'i-about c-me-about', text: ['关于我们', ''], path: '/me/about' },
+      { ico: 'i-about c-me-about', text: ['关于我们', ''], href: '/3-me/5-about', path: '/me/about' }, // eslint-disable-line
     ]
     if (err) {
       return <ErrorFetch err={err} />
@@ -105,7 +110,8 @@ export default class extends Component {
                 <WrapLink
                   key={uuid()}
                   className="h92 flex ai-center jc-between border-bottom pr25"
-                  path={item.path}
+                  href={item.href}
+                  as={item.as}
                 >
                   <div className="flex ai-center">
                     <i className={`${item.ico} font30 mr10`} />
@@ -120,7 +126,8 @@ export default class extends Component {
             }
             <WrapLink
               className="h92 flex ai-center jc-between border-bottom pr25"
-              path="/me/feedback"
+              href="/3-me/6-feedback"
+              as="/me/feedback"
             >
               <div className="flex ai-center">
                 <MultiColorIco ico="i-feedback font30 mr10" num={3} />
