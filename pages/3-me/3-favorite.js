@@ -23,42 +23,36 @@ export default class extends Component {
       store, req, res,
     } = ctx
 
-    if (req) {
-      const reqCookie = req.headers.cookie
-      const token = cookie.parse(String(reqCookie)).userToken
-      if (token) {
-        try {
-          const userFetch = await http.get('user_info', { token })
-          if (userFetch.data && userFetch.data.user) {
-            store.dispatch(getUser(userFetch.data.user))
-          }
-        } catch (error) {
-          const err = util.inspect(error)
-          return { err }
-        }
+    try {
+      let allCookie
+      let token
+      if (req) {
+        allCookie = req.headers.cookie
+        token = cookie.parse(String(allCookie)).userToken
       } else {
-        res.writeHead(301, {
-          Location: '/login',
-        })
-        res.end()
-        res.finished = true
+        allCookie = document.cookie
+        token = cookie.parse(String(allCookie)).userToken
       }
-    } else if (!req && !store.getState().user) {
-      const docCookie = document.cookie
-      const token = cookie.parse(String(docCookie)).userToken
-      if (token) {
-        try {
-          const userFetch = await http.get('user_info', { token })
-          if (userFetch.data && userFetch.data.user) {
-            store.dispatch(getUser(userFetch.data.user))
-          }
-        } catch (error) {
-          const err = util.inspect(error)
-          return { err }
-        }
+
+      // 检测token是否有效
+      const response = await http.get('user_info', { token })
+      if (response.code === 200 && response.success) {
+        store.dispatch(getUser(response.data.user))
       } else {
-        Router.replace('/3-me/2-login', '/login')
+        if (res) {
+          res.writeHead(301, {
+            Location: '/login',
+          })
+          res.end()
+          res.finished = true
+        }
+        if (!res) {
+          Router.replace('/3-me/2-login', '/login')
+        }
       }
+    } catch (error) {
+      const err = util.inspect(error)
+      return { err }
     }
     return null
   }

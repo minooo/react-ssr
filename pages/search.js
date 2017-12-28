@@ -1,17 +1,38 @@
 import React, { Component } from 'react'
 import { Toast } from 'antd-mobile'
 import { connect } from 'react-redux'
-import { SearchItem, ProductList } from '@components'
-import { http, cache, setTitle } from '@utils'
-import { getMySearch } from '@actions'
+import uuid from 'uuid/v4'
+import reduxPage from '@reduxPage'
+import { http, cache } from '@utils'
+import { getHotSearch, getMySearch } from '@actions'
+import {
+  ErrorFetch,
+  Layout,
+  SearchItem,
+  ProductList,
+} from '@components'
 
-@connect(state => ({
-  hotSearch: state.hotSearch.hot,
-  mySearch: state.mySearch,
-}), {
-  getMySearch,
-})
+const util = require('util')
+
+@reduxPage
+@connect(({ hotSearch, mySearch }) => ({ hotSearch, mySearch }), { getMySearch })
+
 export default class extends Component {
+  static async getInitialProps(ctx) {
+    // err req res pathname query asPath isServer
+    const { store } = ctx
+    if (store.getState().hotSearch.length === 0) {
+      try {
+        const searchFetch = await http.get('search')
+        const searchData = searchFetch.data.hot
+        store.dispatch(getHotSearch(searchData))
+      } catch (error) {
+        const err = util.inspect(error)
+        return { err }
+      }
+    }
+    return null
+  }
   state = {
     focus: false,
     value: false,
@@ -19,8 +40,16 @@ export default class extends Component {
     cards: [],
     loans: [],
   }
-  componentWillMount() {
-    setTitle('搜索')
+  componentDidMount() {
+    const { getMySearch } = this.props
+    let mySearch
+    if (cache.getItem('my_search')) {
+      mySearch = cache.getItem('my_search')
+    } else {
+      cache.setItem('my_search', [])
+      mySearch = []
+    }
+    getMySearch(mySearch)
   }
   onChange = () => {
     const val = this.search.value.trim()
@@ -89,9 +118,12 @@ export default class extends Component {
     const {
       focus, value, hasSearched, cards, loans,
     } = this.state
-    const { hotSearch, mySearch } = this.props
+    const { hotSearch, mySearch, err } = this.props
+    if (err) {
+      return <ErrorFetch err={err} />
+    }
     return (
-      <div className="flex column h-100 bg-white">
+      <Layout title="搜索">
         <div className="flex plr25 h100 relative ai-center bg-border equal-no overflow-h">
           <input
             ref={ele => this.search = ele}
@@ -144,7 +176,7 @@ export default class extends Component {
           }
           {
             loans.length > 0 && loans.map(item => (
-              <ProductList key={uuid.v4()} {...item} border />
+              <ProductList key={uuid()} {...item} border />
             ))
           }
           {
@@ -152,11 +184,11 @@ export default class extends Component {
           }
           {
             cards.length > 0 && cards.map(item => (
-              <ProductList key={uuid.v4()} {...item} border />
+              <ProductList key={uuid()} {...item} border />
             ))
           }
         </div>
-      </div>
+      </Layout>
     )
   }
 }

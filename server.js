@@ -75,6 +75,11 @@ app.prepare()
       ctx.respond = false
     })
 
+    router.get('/me/data', async (ctx) => {
+      await app.render(ctx.req, ctx.res, '/3-me/7-myData', ctx.query)
+      ctx.respond = false
+    })
+
     router.get('*', async (ctx) => {
       await handle(ctx.req, ctx.res)
       ctx.respond = false

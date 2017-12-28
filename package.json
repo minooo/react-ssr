@@ -7,7 +7,7 @@
     "dev2": "next",
     "dev": "node server.js",
     "build": "next build",
-    "start": "cross-env NODE_ENV=production node server.js",
+    "start": "npm run build && cross-env NODE_ENV=production node server.js",
     "analyze": "cross-env ANALYZE=1 next build",
     "css": "npm run css:build && npm run css:clean",
     "css:build": "webpack --config webpack-handle-css.js --progress --color",

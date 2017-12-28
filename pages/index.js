@@ -24,9 +24,7 @@ const util = require('util')
 export default class extends Component {
   static async getInitialProps(ctx) {
     // err req res pathname query asPath isServer
-    const {
-      store, pathname, query, asPath,
-    } = ctx
+    const { store } = ctx
 
     if (!store.getState().home) {
       try {
@@ -38,7 +36,7 @@ export default class extends Component {
         return { err }
       }
     }
-    return { pathname, query, asPath }
+    return null
   }
   state = {
     messageList: ['136****5422成功贷款2万元', '186****7399成功贷款3万元', '158****0919成功贷款5万元', '151****6655成功贷款3000元'],
