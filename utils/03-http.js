@@ -1,5 +1,4 @@
 import axios from 'axios'
-
 // axios config https://github.com/axios/axios#request-config
 // const myApi = 'https://www.easy-mock.com/mock/58fff6e5739ac1685205acb1/data/'
 // const token = cache.getItem('user_token')
@@ -21,7 +20,7 @@ const callApi = (url, method, data, options = {}) => {
     method,
     params: method === 'get' ? data : {}, // 添加在请求URL后面的参数
     data: method !== 'get' ? data : {}, // 适用于 PUT POST PATCH
-    withCredentials: false, // 是否跨域
+    withCredentials: true, // 请求时是否携带cookie
   }, opts)).then(data => data.data)
 }
 

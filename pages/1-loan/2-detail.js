@@ -56,24 +56,20 @@ export default class extends Component {
     const { detail } = this.props
     const allCookie = document.cookie
     const token = cookie.parse(String(allCookie)).userToken
-    if (token) {
-      Toast.loading('处理中')
-      http.put(
-        'toggling_collect',
-        { type: 1, type_id: detail.id, token },
-      ).then((response) => {
-        Toast.hide()
-        if (response.code === 200 && response.success) {
-          this.setState(pre => ({ favorited: !pre.favorited }))
-        } else {
-          Toast.fail(`抱歉，请求出错。${response.msg}`)
-        }
-      }).catch(() => { Toast.offline('抱歉，网络错误，请稍后再试！') })
-    } else {
-      Toast.info('当前操作需要登录哦，页面即将跳转', 2, () => {
-        Router.replace({ pathname: '/3-me/2-login', query: { href: '/1-loan/2-detail', as: `/loan/${detail.id}` } }, '/login')
-      })
-    }
+    Toast.loading('处理中')
+    http.put(
+      'toggling_collect',
+      { type: 1, type_id: detail.id, token },
+    ).then((response) => {
+      Toast.hide()
+      if (response.code === 200 && response.success) {
+        this.setState(pre => ({ favorited: !pre.favorited }))
+      } else {
+        Toast.info('当前操作需要登录哦，页面即将跳转', 2, () => {
+          Router.replace({ pathname: '/3-me/2-login', query: { href: '/1-loan/2-detail', as: `/loan/${detail.id}` } }, '/login')
+        })
+      }
+    }).catch(() => { Toast.offline('抱歉，网络错误，请稍后再试！') })
   }
 
   // 申请
@@ -81,22 +77,22 @@ export default class extends Component {
     const { detail } = this.props
     const allCookie = document.cookie
     const token = cookie.parse(String(allCookie)).userToken
-    if (token) {
-      Toast.loading('处理中')
-
-      // 记录申请的接口
-      http.post(
-        `apply/1/${detail.id}`,
-        { token },
-      ).then(() => {
-        Toast.hide()
-        window.location.href = detail.external_links
-      }).catch(() => { window.location.href = detail.external_links })
-    } else {
-      Toast.info('当前操作需要登录哦，页面即将跳转', 2, () => {
-        Router.replace({ pathname: '/3-me/2-login', query: { href: '/1-loan/2-detail', as: `/loan/${detail.id}` } }, '/login')
-      })
-    }
+    Toast.loading('处理中')
+    http.get('user_info', { token }).then((response) => {
+      if (response.code === 200 && response.success) {
+        http.post(
+          `apply/1/${detail.id}`,
+          { token },
+        ).then(() => {
+          Toast.hide()
+          window.location.href = detail.external_links
+        }).catch(() => { window.location.href = detail.external_links })
+      } else {
+        Toast.info('当前操作需要登录哦，页面即将跳转', 2, () => {
+          Router.replace({ pathname: '/3-me/2-login', query: { href: '/1-loan/2-detail', as: `/loan/${detail.id}` } }, '/login')
+        })
+      }
+    })
   }
 
   // 只是单纯的改变 input value
