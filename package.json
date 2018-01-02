@@ -11,7 +11,8 @@
     "analyze": "cross-env ANALYZE=1 next build",
     "css": "npm run css:build && npm run css:clean",
     "css:build": "webpack --config webpack-handle-css.js --progress --color",
-    "css:clean": "rimraf static/styles/antd_mobile_min.js static/styles/app_min.js"
+    "css:clean": "rimraf static/styles/antd_mobile_min.js static/styles/app_min.js",
+    "css:dev": "webpack --config webpack-handle-css.js --watch --progress --color"
   },
   "repository": {
     "type": "git",

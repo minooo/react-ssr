@@ -6,7 +6,7 @@ export default class extends React.Component {
   render() {
     const { title, children } = this.props
     return (
-      <div className="box bg-body h-full flex column" style={{ touchAction: 'none' }}>
+      <div className="box bg-body h-full flex column overflow-y" style={{ touchAction: 'none' }}>
         <Head>
           <title>{ title }</title>
         </Head>

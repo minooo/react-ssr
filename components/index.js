@@ -25,3 +25,7 @@ export { default as SearchItem } from './1-04-SearchItem'
 
 // card 3
 export { default as CardRecommend } from './3-01-Recommend'
+
+// me 4
+export { default as SwitchList } from './4-01-SwitchList'
+export { default as ChangeList } from './4-02-ChangeList'

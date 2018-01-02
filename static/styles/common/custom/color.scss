@@ -40,8 +40,11 @@ $color-list: (
 .bg-ccc {
   background-color: #ccc;
 }
+.bg-light-yellow {
+  background-color: #f8f3d4;
+}
 .c-me-star {
-  color: #ffbf17;
+  color: #524423;
 }
 .c-me-invite {
   color: #3ac992;
@@ -73,4 +76,12 @@ $color-list: (
 
 .border-right {
   border-right: 1px solid #ddd;
+}
+
+input::placeholder {
+  color: #999
+}
+input:disabled {
+  background: none;
+  color: #4c8dfc;
 }

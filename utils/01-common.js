@@ -10,6 +10,22 @@ export const isMobile = (mobile) => {
   return /^1[3|4|5|7|8]\d{9}$/.test(m) ? m : false
 }
 
+export const isIDNumber = (id) => {
+  if (!id) {
+    return false
+  }
+  const m = id.replace(/ /g, '')
+  return /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(m) ? m : false
+}
+
+export const isName = (name) => {
+  if (!name) {
+    return false
+  }
+  const m = name.replace(/ /g, '')
+  return /^[\u4e00-\u9fa5]{2,4}$/.test(m) ? m : false
+}
+
 export const isIOS = () => /(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)
 
 export const isAndroid = () => /(Android)/i.test(navigator.userAgent)
