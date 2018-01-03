@@ -37,8 +37,8 @@ export default ({ list = ['欢迎来到嘟嘟金融'] }) => (
       hor
       style={{ borderLeft: '1px dashed #ddd' }}
       btnClass="h42 pl15 pr20 c-second ml10"
-      href="/1-loan/1-home"
-      as="/loan"
+      href="/1-loan/3-goLoan"
+      as="/loan/go"
       icoClass="i-add font-28 pr5"
       con={<span className="font24 lh100">我要贷</span>}
     />

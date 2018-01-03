@@ -39,8 +39,11 @@ export default class extends Component {
 
       // 检测token是否有效
       const response = await http.get('user_info', { token })
+      const response2 = await http.get('base_edit', { token })
+      const base = response2.data
       if (response.code === 200 && response.success) {
-        store.dispatch(getUser(response.data.user))
+        const { user } = response.data
+        store.dispatch(getUser(user))
       } else {
         if (res) {
           res.writeHead(301, {
@@ -53,24 +56,26 @@ export default class extends Component {
           Router.replace('/3-me/2-login', '/login')
         }
       }
+      return { base }
     } catch (error) {
       const err = util.inspect(error)
       return { err }
     }
-    return null
   }
   state = {
-    focus: 1,
+    focus: 0,
     // 第一步
-    trueName: "",
-    isMan: true,
-    IDNumber: "",
-    city: "",
-    isMarried: false,
+    trueName: '',
+    isMan: '',
+    IDNumber: '',
+    provinceVal: '',
+    cities: '',
+    cityVal: '',
+    marryVal: '',
     // 第二步
     jobTypesVal: 0,
     payTypesVal: 0,
-    payMonthVal: 0,
+    payMonthVal: '',
     isSocial: false,
     isFund: false,
     // 第三步
@@ -83,11 +88,35 @@ export default class extends Component {
     creditVal: 0,
     sesameCreditVal: 0,
   }
+  componentDidMount() {
+    const { base } = this.props
+    if (base) {
+      this.setMyState(base)
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.base && nextProps.base) {
+      this.setMyState(nextProps.base)
+    }
+  }
   onSwitch = (key) => {
-    this.setState(pre => ({[key]: !pre[key]}))
+    this.setState(pre => ({ [key]: pre[key] === 1 ? 2 : 1 }))
   }
   onChange = (e, key) => {
     const v = e.target.value
+    if (key === 'provinceVal') {
+      Toast.loading('获取城市数据')
+      http.get(`city/${v}`).then((response) => {
+        Toast.hide()
+        if (response.code === 200 && response.success) {
+          const cities = response.data.city
+          this.setState(() => ({ cities }))
+        } else {
+          Toast.fail(response.msg ? response.msg : '获取异常，请稍后再试。')
+        }
+      }).catch(() => { Toast.offline('网络异常，请稍后再试！') })
+    }
     this.setState(() => ({ [key]: v }))
   }
   onNext = () => {
@@ -96,35 +125,56 @@ export default class extends Component {
       trueName,
       isMan,
       IDNumber,
-      city,
-      isMarried,
+      provinceVal,
+      cities,
+      cityVal,
+      marryVal,
     } = this.state
     if (focus === 0) {
       const trueName = this.trueName.value.trim()
       const IDNumber = this.IDNumber.value.trim()
-      const city = this.city.value.trim()
       if (!isName(trueName)) { Toast.fail('请填写您的真实姓名，2-4字'); return }
       if (!isIDNumber(IDNumber)) { Toast.fail('请填写正确的身份证号'); return }
-      if (!city) { Toast.fail('请填写您所在的城市'); return }
-      this.setState(() => ({ focus: 1, trueName, IDNumber, city}))
+      console.log(trueName, isMan, IDNumber, cityVal, marryVal)
+      // this.setState(() => ({
+      //   focus: 1, trueName, IDNumber,
+      // }))
+      return
     }
     if (focus === 1) {
-      this.setState(() => ({ focus: 2}))
+      if (parseInt(jobTypesVal, 0) !== 2) {
+        const payMonthVal = this.payMonth.value.trim()
+        if (!payMonthVal) { Toast.fail(`请填写您的${parseInt(jobTypesVal, 0) === 1 ? '月经营流水' : '月收入'}`); return }
+        this.setState(() => ({ focus: 2, payMonthVal }))
+      }
+      this.setState(() => ({ focus: 2 }))
+      return
     }
     if (focus === 2) {
       alert('123')
     }
   }
+  setMyState = (base) => {
+    this.setState(() => ({
+      trueName: base.base.name,
+      isMan: base.base.sex,
+      IDNumber: base.base.idNum,
+      provinceVal: base.province,
+      marryVal: base.base.marital_status,
+    }))
+  }
   render() {
-    const { err, user } = this.props
+    const { err, user, base } = this.props
     const {
       focus,
 
       trueName,
       isMan,
       IDNumber,
-      city,
-      isMarried,
+      provinceVal,
+      cities,
+      cityVal,
+      marryVal,
 
       jobTypesVal,
       payTypesVal,
@@ -150,10 +200,9 @@ export default class extends Component {
       title: '资产情况',
     }].map(item => <Step key={uuid()} title={item.title} />)
 
-    // 职业身份 收入方式 月收入 信用情况 芝麻信用分
-    const jobTypes = ['上班族', '个体户', '企业主', '学生', '无固定职业']
+    // 职业身份 收入方式 信用情况 芝麻信用分
+    const jobTypes = ['上班族', '个体户', '学生', '无固定职业']
     const payTypes = ['打卡工资', '现金发放', '部分打卡，部分现金']
-    const payMonth = ['小于4千', '4千——6千', '6千——1万', '1万以上']
     const credit = ['无信用卡或贷款', '有信用卡或贷款，信用良好', '一年内逾期少于3次或少于90天', '一年内逾期超过3次或超过90天', '暂不清楚']
     const sesameCredit = ['550（不含）以下', '550-600（不含）', '600-650（不含）', '650（含）以上']
     if (err) {
@@ -167,7 +216,7 @@ export default class extends Component {
         <div className="h20" />
         <Steps current={focus} direction="horizontal" size="small">{steps}</Steps>
         {
-          focus === 0 &&
+          focus === 0 && base &&
           <div className="pl25 bg-white mt10 mb25">
             <div className="h80 border-bottom flex jc-between ai-center">
               <div className="font28 c666">姓名</div>
@@ -203,31 +252,35 @@ export default class extends Component {
                 className="block equal reset text-right plr30 font28 c-main"
               />
             </div>
-            <div className="h80 border-bottom flex jc-between ai-center">
-              <div className="font28 c666">所在城市</div>
-              <input
-                type="text"
-                placeholder="请输入您所在城市"
-                defaultValue={city}
-                ref={ele => this.city = ele}
-                maxLength="20"
-                className="block equal reset text-right plr30 font28 c-main"
-              />
-            </div>
-            <SwitchList title="婚姻状况" onSwitch={this.onSwitch} keyVal="isMarried" stateVal={isMarried} yes="已婚" no="未婚" />
+            <ChangeList title="所在省份" types={base.province} stateVal={provinceVal} keyVal="provinceVal" onChange={this.onChange} />
+            {
+              cities && cities.length > 0 &&
+              <ChangeList title="所在城市" types={cities} stateVal={cityVal} keyVal="cityVal" onChange={this.onChange} />
+            }
+            <ChangeList title="婚姻状况" types={base.marital_status} stateVal={marryVal} keyVal="marryVal" onChange={this.onChange} />
           </div>
         }
         {
           focus === 1 &&
           <div className="pl25 bg-white mt10 mb25">
-            <ChangeList title="职业身份" types={jobTypes} stateVal={jobTypesVal} keyVal="jobTypesVal" onChange={this.onChange}/>
+            <ChangeList title="职业身份" types={jobTypes} stateVal={jobTypesVal} keyVal="jobTypesVal" onChange={this.onChange} />
             {
-              jobTypesVal !== "3" &&
-              <ChangeList title="收入方式" types={payTypes} stateVal={payTypesVal} keyVal="payTypesVal" onChange={this.onChange}/>
+              parseInt(jobTypesVal, 0) === 0 &&
+              <ChangeList title="收入方式" types={payTypes} stateVal={payTypesVal} keyVal="payTypesVal" onChange={this.onChange} />
             }
             {
-              jobTypesVal !== "3" &&
-              <ChangeList title="月收入" types={payMonth} stateVal={payMonthVal} keyVal="payMonthVal" onChange={this.onChange}/>
+              parseInt(jobTypesVal, 0) !== 2 &&
+              <div className="h80 border-bottom flex jc-between ai-center">
+                <div className="font28 c666">{jobTypesVal === '1' ? '月经营流水' : '月收入'}</div>
+                <input
+                  type="number"
+                  placeholder="请输入..."
+                  defaultValue={payMonthVal}
+                  ref={ele => this.payMonth = ele}
+                  className="block equal reset text-right pl30 pr5 font28 c-main"
+                />
+                <div className="c-main font28 pr30">元</div>
+              </div>
             }
             <SwitchList title="是否连续6个月缴纳社保" onSwitch={this.onSwitch} keyVal="isSocial" stateVal={isSocial} />
             <SwitchList title="是否连续6个月缴纳公积金" onSwitch={this.onSwitch} keyVal="isFund" stateVal={isFund} />
@@ -242,17 +295,17 @@ export default class extends Component {
             <SwitchList title="手机号是否实名认证" onSwitch={this.onSwitch} keyVal="isAuth" stateVal={isAuth} />
             <SwitchList title="本人名下是否有房产" onSwitch={this.onSwitch} keyVal="isHouse" stateVal={isHouse} />
             <SwitchList title="本人名下是否有私车" onSwitch={this.onSwitch} keyVal="isCar" stateVal={isCar} />
-            <ChangeList title="信用情况" types={credit} stateVal={creditVal} keyVal="creditVal" onChange={this.onChange}/>
-            <ChangeList title="芝麻信用分" types={sesameCredit} stateVal={sesameCreditVal} keyVal="sesameCreditVal" onChange={this.onChange}/>
+            <ChangeList title="信用情况" types={credit} stateVal={creditVal} keyVal="creditVal" onChange={this.onChange} />
+            <ChangeList title="芝麻信用分" types={sesameCredit} stateVal={sesameCreditVal} keyVal="sesameCreditVal" onChange={this.onChange} />
           </div>
         }
-        
         <Btn
           hor
-          btnClass="bg-main r8 h72 ml25 mr25"
+          btnClass="bg-main r8 h72 ml25 mr25 mb20"
           con={<span className="c-white font30">{focus !== 2 ? '下一步' : '完成'}</span>}
           onClick={this.onNext}
         />
+        <div className="text-center ptb20 font24 c999">您的信息绝不会泄露，仅用于推荐产品</div>
       </Layout>
     )
   }

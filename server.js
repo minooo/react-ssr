@@ -25,6 +25,11 @@ app.prepare()
       ctx.respond = false
     })
 
+    router.get('/loan/go', async (ctx) => {
+      await app.render(ctx.req, ctx.res, '/1-loan/3-goLoan', ctx.query)
+      ctx.respond = false
+    })
+
     router.get('/loan/:id', async (ctx) => {
       await app.render(ctx.req, ctx.res, '/1-loan/2-detail', ctx.query)
       ctx.respond = false

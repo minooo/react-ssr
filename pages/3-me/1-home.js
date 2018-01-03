@@ -25,37 +25,38 @@ export default class extends Component {
     const {
       store, req, res,
     } = ctx
-
-    try {
-      let allCookie
-      let token
-      if (req) {
-        allCookie = req.headers.cookie
-        token = cookie.parse(String(allCookie)).userToken
-      } else {
-        allCookie = document.cookie
-        token = cookie.parse(String(allCookie)).userToken
-      }
-
-      // 检测token是否有效
-      const response = await http.get('user_info', { token })
-      if (response.code === 200 && response.success) {
-        store.dispatch(getUser(response.data.user))
-      } else {
-        if (res) {
-          res.writeHead(301, {
-            Location: '/login',
-          })
-          res.end()
-          res.finished = true
+    if (!store.getState().user) {
+      try {
+        let allCookie
+        let token
+        if (req) {
+          allCookie = req.headers.cookie
+          token = cookie.parse(String(allCookie)).userToken
+        } else {
+          allCookie = document.cookie
+          token = cookie.parse(String(allCookie)).userToken
         }
-        if (!res) {
-          Router.replace('/3-me/2-login', '/login')
+
+        // 检测token是否有效
+        const response = await http.get('user_info', { token })
+        if (response.code === 200 && response.success) {
+          store.dispatch(getUser(response.data.user))
+        } else {
+          if (res) {
+            res.writeHead(301, {
+              Location: '/login',
+            })
+            res.end()
+            res.finished = true
+          }
+          if (!res) {
+            Router.replace('/3-me/2-login', '/login')
+          }
         }
+      } catch (error) {
+        const err = util.inspect(error)
+        return { err }
       }
-    } catch (error) {
-      const err = util.inspect(error)
-      return { err }
     }
     return null
   }
