@@ -39,8 +39,15 @@ export default class extends Component {
 
       // 检测token是否有效
       const response = await http.get('user_info', { token })
+      // 第一步 基础信息
       const response2 = await http.get('base_edit', { token })
       const base = response2.data
+      // 第二步 信息
+      const response3 = await http.get('identity_edit', { token })
+      const base2 = response3.data
+      // 第三步 信息
+      const response4 = await http.get('asset_edit', { token })
+      const base3 = response4.data
       if (response.code === 200 && response.success) {
         const { user } = response.data
         store.dispatch(getUser(user))
@@ -56,7 +63,7 @@ export default class extends Component {
           Router.replace('/3-me/2-login', '/login')
         }
       }
-      return { base }
+      return { base, base2, base3 }
     } catch (error) {
       const err = util.inspect(error)
       return { err }
@@ -66,38 +73,36 @@ export default class extends Component {
     focus: 0,
     // 第一步
     trueName: '',
-    isMan: '',
-    IDNumber: '',
+    isMan: 1,
     provinceVal: '',
     cities: '',
     cityVal: '',
     marryVal: '',
     // 第二步
-    jobTypesVal: 0,
-    payTypesVal: 0,
-    payMonthVal: '',
-    isSocial: false,
-    isFund: false,
+    jobTypesVal: '',
+    payTypesVal: '',
+    isSocial: 2,
+    isFund: 2,
     // 第三步
-    isCard: false,
-    isAccount: false,
-    isInsure: false,
-    isAuth: false,
-    isHouse: false,
-    isCar: false,
-    creditVal: 0,
-    sesameCreditVal: 0,
+    isCard: 2,
+    isAccount: 2,
+    isInsure: 2,
+    isAuth: 2,
+    isHouse: 2,
+    isCar: 2,
+    creditVal: '',
+    sesameCreditVal: '',
   }
   componentDidMount() {
-    const { base } = this.props
-    if (base) {
-      this.setMyState(base)
+    const { base, base2, base3 } = this.props
+    if (base && base2 && base3) {
+      this.setMyState(base, base2, base3)
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!this.props.base && nextProps.base) {
-      this.setMyState(nextProps.base)
+    if (!this.props.base && (nextProps.base && nextProps.base2 && nextProps.base3)) {
+      this.setMyState(nextProps.base, nextProps.base2, nextProps.base3)
     }
   }
   onSwitch = (key) => {
@@ -111,7 +116,8 @@ export default class extends Component {
         Toast.hide()
         if (response.code === 200 && response.success) {
           const cities = response.data.city
-          this.setState(() => ({ cities }))
+          const cityVal = cities[0].id
+          this.setState(() => ({ cities, cityVal }))
         } else {
           Toast.fail(response.msg ? response.msg : '获取异常，请稍后再试。')
         }
@@ -120,76 +126,134 @@ export default class extends Component {
     this.setState(() => ({ [key]: v }))
   }
   onNext = () => {
+    const allCookie = document.cookie
+    const token = cookie.parse(String(allCookie)).userToken
     const {
       focus,
-      trueName,
-      isMan,
-      IDNumber,
-      provinceVal,
-      cities,
-      cityVal,
-      marryVal,
+      isMan, provinceVal, cityVal, marryVal,
+      jobTypesVal, payTypesVal, isSocial, isFund,
+      isCard, isAccount, isInsure, isAuth, isHouse, isCar, creditVal, sesameCreditVal,
     } = this.state
+    const { base2 } = this.props
     if (focus === 0) {
       const trueName = this.trueName.value.trim()
       const IDNumber = this.IDNumber.value.trim()
       if (!isName(trueName)) { Toast.fail('请填写您的真实姓名，2-4字'); return }
       if (!isIDNumber(IDNumber)) { Toast.fail('请填写正确的身份证号'); return }
-      console.log(trueName, isMan, IDNumber, cityVal, marryVal)
-      // this.setState(() => ({
-      //   focus: 1, trueName, IDNumber,
-      // }))
+      Toast.loading('处理中...')
+      http.post('base_edit', {
+        name: trueName,
+        sex: isMan,
+        idNum: IDNumber,
+        province_id: provinceVal,
+        city_id: cityVal,
+        marital_status: marryVal,
+        token,
+      }).then((response) => {
+        Toast.hide()
+        if (response.code === 200 && response.success) {
+          this.setState(() => ({ focus: 1 }), () => {
+            // 初始化月收入
+            if (this.payMonth) {
+              this.payMonth.value = base2 && base2.info ? (base2.info.monthly_income || base2.info.monthly_turnover || '') : ''
+            }
+          })
+        } else {
+          Toast.fail(response.msg ? response.msg : '获取异常，请稍后再试。')
+        }
+      }).catch(() => { Toast.offline('网络异常，请稍后再试！') })
       return
     }
     if (focus === 1) {
-      if (parseInt(jobTypesVal, 0) !== 2) {
-        const payMonthVal = this.payMonth.value.trim()
-        if (!payMonthVal) { Toast.fail(`请填写您的${parseInt(jobTypesVal, 0) === 1 ? '月经营流水' : '月收入'}`); return }
-        this.setState(() => ({ focus: 2, payMonthVal }))
+      if (parseInt(jobTypesVal, 0) !== 3) {
+        const payMonthVal = this.payMonth.value
+        if (!payMonthVal) { Toast.fail(`请填写您的${parseInt(jobTypesVal, 0) === 2 ? '月经营流水' : '月收入'}`); return }
       }
-      this.setState(() => ({ focus: 2 }))
+      Toast.loading('处理中...')
+      http.post('identity_edit', {
+        identity_status: jobTypesVal,
+        ...(parseInt(jobTypesVal, 0) === 1 && { income_mode: payTypesVal }),
+        ...(parseInt(jobTypesVal, 0) !== 3 && { [parseInt(jobTypesVal, 0) === 2 ? 'monthly_turnover' : 'monthly_income']: this.payMonth.value }),
+        is_pay_six_months_social_security: isSocial,
+        is_pay_six_months_accumulation_fund: isFund,
+        token,
+      }).then((response) => {
+        Toast.hide()
+        if (response.code === 200 && response.success) {
+          this.setState(() => ({ focus: 2 }))
+        } else {
+          Toast.fail(response.msg ? response.msg : '获取异常，请稍后再试。')
+        }
+      }).catch(() => { Toast.offline('网络异常，请稍后再试！') })
       return
     }
     if (focus === 2) {
-      alert('123')
+      Toast.loading('处理中...')
+      http.post('asset_edit', {
+        has_credit_card: isCard,
+        has_net_shopping_account: isAccount,
+        has_commercial_insurance: isInsure,
+        phone_real_name_authentication: isAuth,
+        house_property: isHouse,
+        has_car: isCar,
+        credit_condition: creditVal,
+        zhima_score: sesameCreditVal,
+        token,
+      }).then((response) => {
+        Toast.hide()
+        if (response.code === 200 && response.success) {
+          // Router.replace('/3-me/2-login', '/login')
+        } else {
+          Toast.fail(response.msg ? response.msg : '获取异常，请稍后再试。')
+        }
+      }).catch(() => { Toast.offline('网络异常，请稍后再试！') })
     }
   }
-  setMyState = (base) => {
+  setMyState = (base, base2, base3) => {
+    this.trueName.value = base.base.name
+    this.IDNumber.value = base.base.idNum
     this.setState(() => ({
       trueName: base.base.name,
-      isMan: base.base.sex,
+      isMan: base.base.sex || 1,
       IDNumber: base.base.idNum,
-      provinceVal: base.province,
+      provinceVal: base.base.province_id || base.province[0].id,
       marryVal: base.base.marital_status,
-    }))
+
+      jobTypesVal: (base2.info && base2.info.identity_status) ? base2.info.identity_status : base2.options.identity[0].id,
+      payTypesVal: (base2.info && base2.info.identity_status === 1) ? base2.info.income_mode : base2.options.income_mode[0].id,
+      isSocial: (base2.info && base2.info.is_pay_six_months_social_security) ? base2.info.is_pay_six_months_social_security : 2,
+      isFund: (base2.info && base2.info.is_pay_six_months_accumulation_fund) ? base2.info.is_pay_six_months_accumulation_fund : 2,
+
+      isCard: (base3.info && base3.info.has_credit_card) ? base3.info.has_credit_card : 2,
+      isAccount: (base3.info && base3.info.has_net_shopping_account) ? base3.info.has_net_shopping_account : 2,
+      isInsure: (base3.info && base3.info.has_commercial_insurance) ? base3.info.has_commercial_insurance : 2,
+      isAuth: (base3.info && base3.info.phone_real_name_authentication) ? base3.info.phone_real_name_authentication : 2,
+      isHouse: (base3.info && base3.info.house_property) ? base3.info.house_property : 2,
+      isCar: (base3.info && base3.info.has_car) ? base3.info.has_car : 2,
+      creditVal: (base3.info && base3.info.credit_condition) ? base3.info.credit_condition : base3.options.credit_condition[0].id,
+      sesameCreditVal: (base3.info && base3.info.zhima_score) ? base3.info.zhima_score : base3.options.zhima_score[0].id,
+    }), () => {
+      http.get(`city/${base.base.province_id || base.province[0].id}`).then((response) => {
+        Toast.hide()
+        if (response.code === 200 && response.success) {
+          const cities = response.data.city
+          const cityVal = base.base.city_id || cities[0].id
+          this.setState(() => ({ cities, cityVal }))
+        } else {
+          Toast.fail(response.msg ? response.msg : '获取异常，请稍后再试。')
+        }
+      }).catch(() => { Toast.offline('网络异常，请稍后再试！') })
+    })
   }
   render() {
-    const { err, user, base } = this.props
+    const {
+      err, user, base, base2, base3,
+    } = this.props
     const {
       focus,
-
-      trueName,
-      isMan,
-      IDNumber,
-      provinceVal,
-      cities,
-      cityVal,
-      marryVal,
-
-      jobTypesVal,
-      payTypesVal,
-      payMonthVal,
-      isSocial,
-      isFund,
-
-      isCard,
-      isAccount,
-      isInsure,
-      isAuth,
-      isHouse,
-      isCar,
-      creditVal,
-      sesameCreditVal,
+      trueName, isMan, provinceVal, cities, cityVal, marryVal,
+      jobTypesVal, payTypesVal, isSocial, isFund,
+      isCard, isAccount, isInsure, isAuth, isHouse, isCar, creditVal, sesameCreditVal,
     } = this.state
     const { Step } = Steps
     const steps = [{
@@ -199,12 +263,6 @@ export default class extends Component {
     }, {
       title: '资产情况',
     }].map(item => <Step key={uuid()} title={item.title} />)
-
-    // 职业身份 收入方式 信用情况 芝麻信用分
-    const jobTypes = ['上班族', '个体户', '学生', '无固定职业']
-    const payTypes = ['打卡工资', '现金发放', '部分打卡，部分现金']
-    const credit = ['无信用卡或贷款', '有信用卡或贷款，信用良好', '一年内逾期少于3次或少于90天', '一年内逾期超过3次或超过90天', '暂不清楚']
-    const sesameCredit = ['550（不含）以下', '550-600（不含）', '600-650（不含）', '650（含）以上']
     if (err) {
       return <ErrorFetch err={err} />
     }
@@ -219,11 +277,10 @@ export default class extends Component {
           focus === 0 && base &&
           <div className="pl25 bg-white mt10 mb25">
             <div className="h80 border-bottom flex jc-between ai-center">
-              <div className="font28 c666">姓名</div>
+              <div className="font28 c666">姓名{trueName}</div>
               <input
                 type="text"
                 placeholder="请输入您的真实姓名"
-                defaultValue={trueName}
                 ref={ele => this.trueName = ele}
                 maxLength="4"
                 className="block equal reset text-right plr30 font28 c-main"
@@ -236,7 +293,6 @@ export default class extends Component {
               <input
                 type="text"
                 placeholder="请输入您的身份证号"
-                defaultValue={IDNumber}
                 ref={ele => this.IDNumber = ele}
                 maxLength="18"
                 className="block equal reset text-right plr30 font28 c-main"
@@ -261,21 +317,20 @@ export default class extends Component {
           </div>
         }
         {
-          focus === 1 &&
+          focus === 1 && base2 &&
           <div className="pl25 bg-white mt10 mb25">
-            <ChangeList title="职业身份" types={jobTypes} stateVal={jobTypesVal} keyVal="jobTypesVal" onChange={this.onChange} />
+            <ChangeList title="职业身份" types={base2.options.identity} stateVal={jobTypesVal} keyVal="jobTypesVal" onChange={this.onChange} />
             {
-              parseInt(jobTypesVal, 0) === 0 &&
-              <ChangeList title="收入方式" types={payTypes} stateVal={payTypesVal} keyVal="payTypesVal" onChange={this.onChange} />
+              parseInt(jobTypesVal, 0) === 1 &&
+              <ChangeList title="收入方式" types={base2.options.income_mode} stateVal={payTypesVal} keyVal="payTypesVal" onChange={this.onChange} />
             }
             {
-              parseInt(jobTypesVal, 0) !== 2 &&
+              parseInt(jobTypesVal, 0) !== 3 &&
               <div className="h80 border-bottom flex jc-between ai-center">
-                <div className="font28 c666">{jobTypesVal === '1' ? '月经营流水' : '月收入'}</div>
+                <div className="font28 c666">{parseInt(jobTypesVal, 0) === 2 ? '月经营流水' : '月收入'}</div>
                 <input
                   type="number"
                   placeholder="请输入..."
-                  defaultValue={payMonthVal}
                   ref={ele => this.payMonth = ele}
                   className="block equal reset text-right pl30 pr5 font28 c-main"
                 />
@@ -287,7 +342,7 @@ export default class extends Component {
           </div>
         }
         {
-          focus === 2 &&
+          focus === 2 && base3 &&
           <div className="pl25 bg-white mt10 mb25">
             <SwitchList title="是否有信用卡" onSwitch={this.onSwitch} keyVal="isCard" stateVal={isCard} />
             <SwitchList title="是否有网购账号" onSwitch={this.onSwitch} keyVal="isAccount" stateVal={isAccount} />
@@ -295,8 +350,8 @@ export default class extends Component {
             <SwitchList title="手机号是否实名认证" onSwitch={this.onSwitch} keyVal="isAuth" stateVal={isAuth} />
             <SwitchList title="本人名下是否有房产" onSwitch={this.onSwitch} keyVal="isHouse" stateVal={isHouse} />
             <SwitchList title="本人名下是否有私车" onSwitch={this.onSwitch} keyVal="isCar" stateVal={isCar} />
-            <ChangeList title="信用情况" types={credit} stateVal={creditVal} keyVal="creditVal" onChange={this.onChange} />
-            <ChangeList title="芝麻信用分" types={sesameCredit} stateVal={sesameCreditVal} keyVal="sesameCreditVal" onChange={this.onChange} />
+            <ChangeList title="信用情况" types={base3.options.credit_condition} stateVal={creditVal} keyVal="creditVal" onChange={this.onChange} />
+            <ChangeList title="芝麻信用分" types={base3.options.zhima_score} stateVal={sesameCreditVal} keyVal="sesameCreditVal" onChange={this.onChange} />
           </div>
         }
         <Btn

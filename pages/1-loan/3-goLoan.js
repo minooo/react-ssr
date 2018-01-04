@@ -70,9 +70,10 @@ export default class extends Component {
       }
     }
   }
+
   state = {
-    purposeVal: 11,
-    timelimitVal: 11,
+    purposeVal: '',
+    timelimitVal: '',
   }
 
   componentDidMount() {
@@ -95,17 +96,31 @@ export default class extends Component {
 
   onSubmit = () => {
     const { purposeVal, timelimitVal } = this.state
+    const allCookie = document.cookie
+    const token = cookie.parse(String(allCookie)).userToken
     const { user } = this.props
     if (!this.loanSize.value) {
       Toast.fail('您的贷款金额为空或者不合法，请重新输入！')
       return
     }
-    // if (!user.idNum || !user.name) {
-    //   Toast.fail('您的资料不完整哦，请完善。', 2, () => {
-    //     Router.replace({ pathname: '/3-me/7-myData', query: { href: '/1-loan/3-goLoan', as: '/loan/go' } }, '/me/data')
-    //   })
-    // }
-    console.log(purposeVal, timelimitVal, this.loanSize.value)
+    if (!user.idNum || !user.name) {
+      Toast.fail('您的资料不完整哦，请完善。', 2, () => {
+        Router.replace({ pathname: '/3-me/7-myData', query: { href: '/1-loan/3-goLoan', as: '/loan/go' } }, '/me/data')
+      })
+      return
+    }
+    http.post(`want_loans?token=${token}`, {
+      money: this.loanSize.value,
+      purpose_id: purposeVal,
+      timelimit_id: timelimitVal,
+    }).then((response) => {
+      Toast.hide()
+      if (response.code === 200 && response.success) {
+        console.log(response)
+      } else {
+        Toast.fail(response.msg ? response.msg : '获取异常，请稍后再试。')
+      }
+    }).catch(() => { Toast.offline('网络异常，请稍后再试！') })
   }
 
   setMyState = (prop) => {

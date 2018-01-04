@@ -134,7 +134,7 @@ export default class extends Component {
             con={<span className="c-main font30 mr10">全部信用卡产品</span>}
           />
           <div className="h90 flex column jc-center ai-center">
-            <div className="font24 c-ccc mb10 lh100 home-foot-text">嘟嘟好享贷出品</div>
+            <div className="font24 c-ccc mb10 lh100 home-foot-text">嘟嘟e融出品</div>
             <div className="font20 c-ccc lh100 home-foot-text">DD Finance</div>
           </div>
         </div>

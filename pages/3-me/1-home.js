@@ -73,9 +73,9 @@ export default class extends Component {
     const list = [
       { ico: 'i-me c-main', text: ['个人资料', '修改完善'], href: '/3-me/7-myData', as: '/me/data' }, // eslint-disable-line
       { ico: 'i-my-like c-me-star', text: ['我的收藏', ''], href: '/3-me/3-favorite', as: '/me/favorite' }, // eslint-disable-line
-      { ico: 'i-browsing-history c-second', text: ['浏览记录', ''], href: '/3-me/4-history', path: '/me/history' }, // eslint-disable-line
-      // { ico: 'i-invite c-me-invite', text: ['邀请好友', ''], path: '/me' },
-      { ico: 'i-about c-me-about', text: ['关于我们', ''], href: '/3-me/5-about', path: '/me/about' }, // eslint-disable-line
+      { ico: 'i-browsing-history c-second', text: ['浏览记录', ''], href: '/3-me/4-history', as: '/me/history' }, // eslint-disable-line
+      // { ico: 'i-invite c-me-invite', text: ['邀请好友', ''], as: '/me' },
+      { ico: 'i-about c-me-about', text: ['关于我们', ''], href: '/3-me/5-about', as: '/me/about' }, // eslint-disable-line
     ]
     if (err) {
       return <ErrorFetch err={err} />
@@ -93,7 +93,7 @@ export default class extends Component {
               path="/me/set"
               icoClass="i-set font38 c-white"
             /> */}
-            <div className="w84 h84 circle overflow-h log-bg">
+            <div className="w84 h84 circle overflow-h me-logo">
               <img src={user.avatar ? user.avatar : 'https://public.duduapp.net/finance/static/img/login.gif'} className="h-100" alt="" />
             </div>
             <div className="font28 bold c-white lh100 pt30">{user.name ? user.name : user.phone}</div>
