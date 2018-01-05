@@ -4,7 +4,7 @@ import Router from 'next/router'
 import { connect } from 'react-redux'
 import { getUser } from '@actions'
 import reduxPage from '@reduxPage'
-import { isMobile, http, setCookie } from '@utils'
+import { isMobile, http, setCookie, searchToObj } from '@utils'
 import { Layout } from '@components'
 
 @reduxPage
@@ -25,6 +25,7 @@ export default class extends Component {
 
   onLogin = () => {
     const { getUser, url: { query } } = this.props
+    const URLquery = searchToObj()
     const phone = isMobile(this.phone.state.value)
     const code = this.code.state.value.trim()
     if (!phone) {
@@ -41,10 +42,18 @@ export default class extends Component {
           http.get('user_info', { token }).then((response) => {
             if (response.code === 200 && response.success) {
               getUser(response.data.user)
+              if (URLquery && URLquery.href) {
+                Router.replace(URLquery.href, URLquery.as)
+                return
+              }
+              if (query && query.href) {
+                Router.replace(query.href, query.as)
+                return
+              }
+              Router.replace('/index', '/')
             } else {
               Toast.fail(`抱歉，请求出错。${response.msg}`)
             }
-            Router.replace(query.href ? query.href : '/', query.as ? query.as : '/')
           }).catch(() => { Toast.offline('抱歉，网络错误，请稍后再试！') })
         } else {
           Toast.fail(`抱歉，请求出错。${response.msg}`)
@@ -108,12 +117,9 @@ export default class extends Component {
         </Modal>
         <div className="equal">
           <div className="flex jc-center ptb30">
-            <div
-              style={{
-                width: '33vw', maxWidth: '3.3rem', height: '33vw', maxHeight: '3.3rem',
-              }}
-            >
-              <img src="http://placekitten.com/g/500/500" className="h-100 circle" alt="" />
+            <div className="flex column ai-center ptb30">
+              <div style={{ width: '1.8rem', height: '1.8rem' }} className="me-logo me-log-shadow mb20 r35" />
+              <div style={{ width: '1.7rem' }} className="me-logo-text h36" />
             </div>
           </div>
           <List>
@@ -147,7 +153,7 @@ export default class extends Component {
           <div className="flex jc-center">
             <Checkbox.AgreeItem defaultChecked onChange={e => this.onSwitchAgree(e)}>
               我已阅读并同意
-              <button className="c-main" onClick={this.onShowAgreement}>《嘟嘟金融协议》</button>
+              <button className="c-main" onClick={this.onShowAgreement}>《嘟嘟e融协议》</button>
             </Checkbox.AgreeItem>
           </div>
 

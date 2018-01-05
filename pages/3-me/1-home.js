@@ -23,7 +23,7 @@ export default class extends Component {
   static async getInitialProps(ctx) {
     // err req res pathname query asPath isServer
     const {
-      store, req, res,
+      store, req, res, isServer,
     } = ctx
     if (!store.getState().user) {
       try {
@@ -38,7 +38,7 @@ export default class extends Component {
         }
 
         // 检测token是否有效
-        const response = await http.get('user_info', { token })
+        const response = await http.get('user_info', { token }, isServer)
         if (response.code === 200 && response.success) {
           store.dispatch(getUser(response.data.user))
         } else {
@@ -93,9 +93,7 @@ export default class extends Component {
               path="/me/set"
               icoClass="i-set font38 c-white"
             /> */}
-            <div className="w84 h84 circle overflow-h me-logo">
-              <img src={user.avatar ? user.avatar : 'https://public.duduapp.net/finance/static/img/login.gif'} className="h-100" alt="" />
-            </div>
+            <div className="w84 h84 circle overflow-h me-logo" />
             <div className="font28 bold c-white lh100 pt30">{user.name ? user.name : user.phone}</div>
           </div>
 

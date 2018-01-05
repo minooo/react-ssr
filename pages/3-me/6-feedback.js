@@ -20,7 +20,7 @@ export default class extends Component {
   static async getInitialProps(ctx) {
     // err req res pathname query asPath isServer
     const {
-      store, req, res,
+      store, req, res, isServer,
     } = ctx
     try {
       let allCookie
@@ -34,7 +34,7 @@ export default class extends Component {
       }
 
       // 检测token是否有效
-      const response = await http.get('user_info', { token })
+      const response = await http.get('user_info', { token }, isServer)
       if (response.code === 200 && response.success) {
         store.dispatch(getUser(response.data.user))
       } else {
@@ -71,7 +71,7 @@ export default class extends Component {
     http.post('feedback', { content, token }).then((response) => {
       if (response.code === 200 && response.success) {
         Toast.success('您的意见我们已收到!', 2, () => {
-          Router.replace('/')
+          Router.replace('/index', '/')
         })
       } else {
         Toast.fail(`抱歉，请求异常。${response.msg}`)

@@ -19,12 +19,12 @@ const util = require('util')
 export default class extends Component {
   static async getInitialProps(ctx) {
     const {
-      store, pathname, query, asPath,
+      store, pathname, query, asPath, isServer,
     } = ctx
 
     if (!store.getState().loansFilter) {
       try {
-        const loansFilterFetch = await http.get('loans_filter')
+        const loansFilterFetch = await http.get('loans_filter', null, isServer)
         const loansFilterData = loansFilterFetch.data
         store.dispatch(getLoansFilter(loansFilterData))
       } catch (error) {

@@ -23,7 +23,7 @@ export default class extends Component {
   static async getInitialProps(ctx) {
     // err req res pathname query asPath isServer
     const {
-      store, req, res,
+      store, req, res, isServer,
     } = ctx
 
     try {
@@ -38,15 +38,15 @@ export default class extends Component {
       }
 
       // 检测token是否有效
-      const response = await http.get('user_info', { token })
+      const response = await http.get('user_info', { token }, isServer)
       // 第一步 基础信息
-      const response2 = await http.get('base_edit', { token })
+      const response2 = await http.get('base_edit', { token }, isServer)
       const base = response2.data
       // 第二步 信息
-      const response3 = await http.get('identity_edit', { token })
+      const response3 = await http.get('identity_edit', { token }, isServer)
       const base2 = response3.data
       // 第三步 信息
-      const response4 = await http.get('asset_edit', { token })
+      const response4 = await http.get('asset_edit', { token }, isServer)
       const base3 = response4.data
       if (response.code === 200 && response.success) {
         const { user } = response.data
@@ -63,7 +63,9 @@ export default class extends Component {
           Router.replace('/3-me/2-login', '/login')
         }
       }
-      return { base, base2, base3 }
+      return {
+        base, base2, base3,
+      }
     } catch (error) {
       const err = util.inspect(error)
       return { err }
@@ -72,7 +74,6 @@ export default class extends Component {
   state = {
     focus: 0,
     // 第一步
-    trueName: '',
     isMan: 1,
     provinceVal: '',
     cities: '',
@@ -81,15 +82,15 @@ export default class extends Component {
     // 第二步
     jobTypesVal: '',
     payTypesVal: '',
-    isSocial: 2,
-    isFund: 2,
+    isSocial: 0,
+    isFund: 0,
     // 第三步
-    isCard: 2,
-    isAccount: 2,
-    isInsure: 2,
-    isAuth: 2,
-    isHouse: 2,
-    isCar: 2,
+    isCard: 0,
+    isAccount: 0,
+    isInsure: 0,
+    isAuth: 0,
+    isHouse: 0,
+    isCar: 0,
     creditVal: '',
     sesameCreditVal: '',
   }
@@ -106,7 +107,7 @@ export default class extends Component {
     }
   }
   onSwitch = (key) => {
-    this.setState(pre => ({ [key]: pre[key] === 1 ? 2 : 1 }))
+    this.setState(pre => ({ [key]: pre[key] === 1 ? 0 : 1 }))
   }
   onChange = (e, key) => {
     const v = e.target.value
@@ -116,7 +117,7 @@ export default class extends Component {
         Toast.hide()
         if (response.code === 200 && response.success) {
           const cities = response.data.city
-          const cityVal = cities[0].id
+          const cityVal = (cities && cities.length > 0) ? cities[0].id : null
           this.setState(() => ({ cities, cityVal }))
         } else {
           Toast.fail(response.msg ? response.msg : '获取异常，请稍后再试。')
@@ -134,7 +135,7 @@ export default class extends Component {
       jobTypesVal, payTypesVal, isSocial, isFund,
       isCard, isAccount, isInsure, isAuth, isHouse, isCar, creditVal, sesameCreditVal,
     } = this.state
-    const { base2 } = this.props
+    const { base2, url: { query } } = this.props
     if (focus === 0) {
       const trueName = this.trueName.value.trim()
       const IDNumber = this.IDNumber.value.trim()
@@ -167,7 +168,11 @@ export default class extends Component {
     if (focus === 1) {
       if (parseInt(jobTypesVal, 0) !== 3) {
         const payMonthVal = this.payMonth.value
-        if (!payMonthVal) { Toast.fail(`请填写您的${parseInt(jobTypesVal, 0) === 2 ? '月经营流水' : '月收入'}`); return }
+        if (!payMonthVal || payMonthVal.split('').lenght > 10) {
+          Toast.fail(`您填写的${parseInt(jobTypesVal, 0) === 2 ? '月经营流水' : '月收入'}为空，或者不合法，请重新输入！`)
+          this.payMonth.value = ''
+          return
+        }
       }
       Toast.loading('处理中...')
       http.post('identity_edit', {
@@ -202,7 +207,14 @@ export default class extends Component {
       }).then((response) => {
         Toast.hide()
         if (response.code === 200 && response.success) {
-          // Router.replace('/3-me/2-login', '/login')
+          if (query.href) {
+            Router.replace({
+              pathname: query.href,
+              query,
+            }, query.as)
+          } else {
+            Router.replace('/index', '/')
+          }
         } else {
           Toast.fail(response.msg ? response.msg : '获取异常，请稍后再试。')
         }
@@ -221,15 +233,15 @@ export default class extends Component {
 
       jobTypesVal: (base2.info && base2.info.identity_status) ? base2.info.identity_status : base2.options.identity[0].id,
       payTypesVal: (base2.info && base2.info.identity_status === 1) ? base2.info.income_mode : base2.options.income_mode[0].id,
-      isSocial: (base2.info && base2.info.is_pay_six_months_social_security) ? base2.info.is_pay_six_months_social_security : 2,
-      isFund: (base2.info && base2.info.is_pay_six_months_accumulation_fund) ? base2.info.is_pay_six_months_accumulation_fund : 2,
+      isSocial: (base2.info && base2.info.is_pay_six_months_social_security) ? base2.info.is_pay_six_months_social_security : 0,
+      isFund: (base2.info && base2.info.is_pay_six_months_accumulation_fund) ? base2.info.is_pay_six_months_accumulation_fund : 0,
 
-      isCard: (base3.info && base3.info.has_credit_card) ? base3.info.has_credit_card : 2,
-      isAccount: (base3.info && base3.info.has_net_shopping_account) ? base3.info.has_net_shopping_account : 2,
-      isInsure: (base3.info && base3.info.has_commercial_insurance) ? base3.info.has_commercial_insurance : 2,
-      isAuth: (base3.info && base3.info.phone_real_name_authentication) ? base3.info.phone_real_name_authentication : 2,
-      isHouse: (base3.info && base3.info.house_property) ? base3.info.house_property : 2,
-      isCar: (base3.info && base3.info.has_car) ? base3.info.has_car : 2,
+      isCard: (base3.info && base3.info.has_credit_card) ? base3.info.has_credit_card : 0,
+      isAccount: (base3.info && base3.info.has_net_shopping_account) ? base3.info.has_net_shopping_account : 0,
+      isInsure: (base3.info && base3.info.has_commercial_insurance) ? base3.info.has_commercial_insurance : 0,
+      isAuth: (base3.info && base3.info.phone_real_name_authentication) ? base3.info.phone_real_name_authentication : 0,
+      isHouse: (base3.info && base3.info.house_property) ? base3.info.house_property : 0,
+      isCar: (base3.info && base3.info.has_car) ? base3.info.has_car : 0,
       creditVal: (base3.info && base3.info.credit_condition) ? base3.info.credit_condition : base3.options.credit_condition[0].id,
       sesameCreditVal: (base3.info && base3.info.zhima_score) ? base3.info.zhima_score : base3.options.zhima_score[0].id,
     }), () => {
@@ -237,7 +249,7 @@ export default class extends Component {
         Toast.hide()
         if (response.code === 200 && response.success) {
           const cities = response.data.city
-          const cityVal = base.base.city_id || cities[0].id
+          const cityVal = (cities && cities.length > 0) ? cities[0].id : null
           this.setState(() => ({ cities, cityVal }))
         } else {
           Toast.fail(response.msg ? response.msg : '获取异常，请稍后再试。')
@@ -251,7 +263,7 @@ export default class extends Component {
     } = this.props
     const {
       focus,
-      trueName, isMan, provinceVal, cities, cityVal, marryVal,
+      isMan, provinceVal, cities, cityVal, marryVal,
       jobTypesVal, payTypesVal, isSocial, isFund,
       isCard, isAccount, isInsure, isAuth, isHouse, isCar, creditVal, sesameCreditVal,
     } = this.state
@@ -277,7 +289,7 @@ export default class extends Component {
           focus === 0 && base &&
           <div className="pl25 bg-white mt10 mb25">
             <div className="h80 border-bottom flex jc-between ai-center">
-              <div className="font28 c666">姓名{trueName}</div>
+              <div className="font28 c666">姓名</div>
               <input
                 type="text"
                 placeholder="请输入您的真实姓名"

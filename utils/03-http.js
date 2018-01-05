@@ -10,12 +10,12 @@ import axios from 'axios'
 
 // const proApi = 'http://jr.duduapp.net/api/'
 // baseURL: ctx.isServer ? 'http://m.jrdudu.com/api/' : '/api/',
-const dev = process.env.NODE_ENV !== 'production'
-const baseURL = dev ? 'http://m.jrdudu.com/api/' : 'http://jr.duduapp.net/api/'
-const callApi = (url, method, data, options = {}) => {
+// const dev = process.env.NODE_ENV !== 'production'
+// const baseURL = dev ? 'http://m.jrdudu.com/api/' : '/api/'
+const callApi = (url, method, data, isServer = false, options = {}) => {
   const opts = { ...options }
   return axios(Object.assign({}, {
-    baseURL,
+    baseURL: isServer ? 'http://jr.duduapp.net/api/' : '/api/',
     url,
     method,
     params: method === 'get' ? data : {}, // 添加在请求URL后面的参数
@@ -26,8 +26,8 @@ const callApi = (url, method, data, options = {}) => {
 
 export default {
   callApi,
-  get: (url, data = {}) => callApi(url, 'get', data),
-  put: (url, data = {}) => callApi(url, 'put', data),
-  post: (url, data = {}) => callApi(url, 'post', data),
-  delete: (url, data = {}) => callApi(url, 'delete', data),
+  get: (url, data = {}, isServer) => callApi(url, 'get', data, isServer),
+  put: (url, data = {}, isServer) => callApi(url, 'put', data, isServer),
+  post: (url, data = {}, isServer) => callApi(url, 'post', data, isServer),
+  delete: (url, data = {}, isServer) => callApi(url, 'delete', data, isServer),
 }

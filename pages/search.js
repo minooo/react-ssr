@@ -20,10 +20,10 @@ const util = require('util')
 export default class extends Component {
   static async getInitialProps(ctx) {
     // err req res pathname query asPath isServer
-    const { store } = ctx
+    const { store, isServer } = ctx
     if (store.getState().hotSearch.length === 0) {
       try {
-        const searchFetch = await http.get('search')
+        const searchFetch = await http.get('search', null, isServer)
         const searchData = searchFetch.data.hot
         store.dispatch(getHotSearch(searchData))
       } catch (error) {

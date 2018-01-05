@@ -20,7 +20,7 @@ export default class extends Component {
   static async getInitialProps(ctx) {
     // err req res pathname query asPath isServer
     const {
-      store, req, res,
+      store, req, res, isServer,
     } = ctx
 
     try {
@@ -35,7 +35,7 @@ export default class extends Component {
       }
 
       // 检测token是否有效
-      const response = await http.get('user_info', { token })
+      const response = await http.get('user_info', { token }, isServer)
       if (response.code === 200 && response.success) {
         store.dispatch(getUser(response.data.user))
       } else {

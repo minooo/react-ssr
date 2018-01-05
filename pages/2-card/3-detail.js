@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Toast } from 'antd-mobile'
 import Router from 'next/router'
 import cookie from 'cookie'
-import { Layout, ErrorFetch, DetailFoot } from '@components'
+import { Layout, ErrorFetch, DetailFoot, NoDataIco } from '@components'
 import { http, imgUrl, getUrlLastStr } from '@utils'
 
 const util = require('util')
@@ -21,9 +21,12 @@ export default class extends Component {
         allCookie = document.cookie
         token = cookie.parse(String(allCookie)).userToken
       }
-      const loanDetailFetch = await http.get(`card_detail/${getUrlLastStr(asPath)}`, (token && { token }))
+      const loanDetailFetch = await http.get(`card_detail/${getUrlLastStr(asPath)}`, (token ? { token } : null), !!req)
+      const { success, code, msg } = loanDetailFetch
       const { favorited, detail } = loanDetailFetch.data
-      return { favorited, detail }
+      return {
+        favorited, detail, success, code, msg,
+      }
     } catch (error) {
       const err = util.inspect(error)
       return { err }
@@ -90,8 +93,11 @@ export default class extends Component {
 
   render() {
     const { favorited } = this.state
-    const { err, detail } = this.props
+    const {
+      err, detail, success, code, msg,
+    } = this.props
     if (err) return <ErrorFetch err={err} />
+    if (!success || code !== 200) return <NoDataIco ico="i-search" text={msg || '数据获取失败'} />
     if (!detail) return null
     return (
       <Layout title={detail.name || '信用卡详情'}>

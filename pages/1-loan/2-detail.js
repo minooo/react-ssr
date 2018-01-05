@@ -5,7 +5,7 @@ import Router from 'next/router'
 import cookie from 'cookie'
 import { Toast, InputItem, Picker } from 'antd-mobile'
 import { imgUrl, http, clipPrice, clipBigNum, getUrlLastStr } from '@utils'
-import { Layout, ErrorFetch, DetailFoot, Btn, MultiColorIco } from '@components'
+import { Layout, ErrorFetch, DetailFoot, Btn, MultiColorIco, NoDataIco } from '@components'
 
 const util = require('util')
 
@@ -23,9 +23,12 @@ export default class extends Component {
         allCookie = document.cookie
         token = cookie.parse(String(allCookie)).userToken
       }
-      const loanDetailFetch = await http.get(`loans_detail/${getUrlLastStr(asPath)}`, (token && { token }))
-      const { favorited, detail, apply_flowpath } = loanDetailFetch.data
-      return { favorited, detail, apply_flowpath }
+      const loanDetailFetch = await http.get(`loans_detail/${getUrlLastStr(asPath)}`, (token ? { token } : null), !!req)
+      const { success, code, msg } = loanDetailFetch
+      const { favorited, detail, apply_flowpath } = loanDetailFetch.data // eslint-disable-line
+      return {
+        favorited, detail, apply_flowpath, success, code, msg,
+      }
     } catch (error) {
       const err = util.inspect(error)
       return { err }
@@ -124,7 +127,7 @@ export default class extends Component {
 
   // 一些状态需要设置
   setMyState = () => {
-    const { favorited, detail, apply_flowpath } = this.props
+    const { favorited, detail, apply_flowpath } = this.props // eslint-disable-line
 
     // 转化timelimit 为 picker 适用的数据格式
     let cycleList = null
@@ -197,8 +200,11 @@ export default class extends Component {
     const {
       favorited, applyFlowpath, selectVal, money, finalMoney, cycleList, rate,
     } = this.state
-    const { err, detail } = this.props
+    const {
+      err, detail, success, code, msg,
+    } = this.props
     if (err) return <ErrorFetch err={err} />
+    if (!success || code !== 200) return <NoDataIco ico="i-search" text={msg || '数据获取失败'} />
     if (!detail) return null
     // 转换周期
     let cycleRangeText = null

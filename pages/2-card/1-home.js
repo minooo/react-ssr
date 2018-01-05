@@ -21,11 +21,11 @@ const util = require('util')
 export default class extends Component {
   static async getInitialProps(ctx) {
     // err req res pathname query asPath isServer
-    const { store } = ctx
+    const { store, isServer } = ctx
 
     if (!store.getState().cardsHome) {
       try {
-        const cardHomeFetch = await http.get('cards')
+        const cardHomeFetch = await http.get('cards', null, isServer)
         const cardHomeData = cardHomeFetch.data
         store.dispatch(getCardsHome(cardHomeData))
       } catch (error) {

@@ -79,7 +79,7 @@ export default class extends Component {
               position: 'absolute',
               zIndex: 50,
               top: '0.9rem',
-              maxHeight: '5rem',
+              maxHeight: '4.7rem',
             }}
             className="w-100 bg-white overflow-y plr25"
           >

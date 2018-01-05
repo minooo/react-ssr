@@ -2,7 +2,9 @@ import { ActiveLink } from '@components'
 import uuid from 'uuid/v4'
 
 const config = [
-  { ico: 'i-home', text: '首页', href: '/' },
+  {
+    ico: 'i-home', text: '首页', href: '/index', as: '/',
+  },
   {
     ico: 'i-loan', text: '贷款', href: '/1-loan/1-home', as: '/loan',
   },

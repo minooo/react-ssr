@@ -29,7 +29,7 @@ export default ({ list }) => (
       >
         <div className="font28 c333 text-overflow-1 lh150">{list[1].name}</div>
         <div className="flex">
-          <div className="equal font22 c999 text-overflow-2 lh150">{list[1].description}</div>
+          <div style={{ maxHeight: '0.7rem' }} className="equal font22 c999 text-overflow-2 lh150">{list[1].description}</div>
           <div
             className="log-bg r4 overflow-h"
             style={{
@@ -51,7 +51,7 @@ export default ({ list }) => (
       >
         <div className="font28 c333 text-overflow-1 lh150">{list[2].name}</div>
         <div className="flex">
-          <div className="equal font22 c999 text-overflow-2 lh150">{list[2].description}</div>
+          <div style={{ maxHeight: '0.7rem' }} className="equal font22 c999 text-overflow-2 lh150">{list[2].description}</div>
           <div
             className="log-bg r4 overflow-h"
             style={{

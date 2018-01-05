@@ -17,11 +17,11 @@ const util = require('util')
 
 export default class extends Component {
   static async getInitialProps(ctx) {
-    const { store } = ctx
+    const { store, isServer } = ctx
 
     if (!store.getState().cardsFilter) {
       try {
-        const cardsFilterFetch = await http.get('cards_filter')
+        const cardsFilterFetch = await http.get('cards_filter', null, isServer)
         const cardsFilterData = cardsFilterFetch.data
         store.dispatch(getCardsFilter(cardsFilterData))
       } catch (error) {
