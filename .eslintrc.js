@@ -1,12 +1,8 @@
-const path = require('path')
-
 module.exports = {
   root: true,
   globals: {
-    moment: true,
     wx: true,
     flex: true,
-    uuid: true,
   },
   env: {
     browser: true,

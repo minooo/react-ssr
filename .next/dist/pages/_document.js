@@ -35,9 +35,6 @@ var _document2 = _interopRequireDefault(_document);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _jsxFileName = "D:\\WORK\\react-ssr\\pages\\_document.js?entry";
-
-
 var MyDocument = function (_Document) {
   (0, _inherits3.default)(MyDocument, _Document);
 
@@ -50,68 +47,7 @@ var MyDocument = function (_Document) {
   (0, _createClass3.default)(MyDocument, [{
     key: "render",
     value: function render() {
-      return _react2.default.createElement("html", { lang: "en", __source: {
-          fileName: _jsxFileName,
-          lineNumber: 15
-        }
-      }, _react2.default.createElement(_document.Head, {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 16
-        }
-      }, _react2.default.createElement("meta", { charSet: "utf-8", __source: {
-          fileName: _jsxFileName,
-          lineNumber: 17
-        }
-      }), _react2.default.createElement("script", { src: "https://cdn.bootcss.com/moment.js/2.17.1/moment.min.js", __source: {
-          fileName: _jsxFileName,
-          lineNumber: 18
-        }
-      }), _react2.default.createElement("script", { src: "https://cdn.bootcss.com/moment.js/2.17.1/locale/zh-cn.js", __source: {
-          fileName: _jsxFileName,
-          lineNumber: 19
-        }
-      }), _react2.default.createElement("script", { src: "https://res.wx.qq.com/open/js/jweixin-1.2.0.js", __source: {
-          fileName: _jsxFileName,
-          lineNumber: 20
-        }
-      }), _react2.default.createElement("script", { src: "/static/scripts/hd.js", __source: {
-          fileName: _jsxFileName,
-          lineNumber: 21
-        }
-      }), _react2.default.createElement("script", { src: "/static/scripts/local-storage.js", __source: {
-          fileName: _jsxFileName,
-          lineNumber: 22
-        }
-      }), _react2.default.createElement("link", { rel: "stylesheet", href: "/static/styles/antd_mobile_min.css", __source: {
-          fileName: _jsxFileName,
-          lineNumber: 23
-        }
-      }), _react2.default.createElement("link", { rel: "stylesheet", href: "/static/styles/app_min.css", __source: {
-          fileName: _jsxFileName,
-          lineNumber: 24
-        }
-      }), _react2.default.createElement("title", {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 25
-        }
-      }, "\u561F\u561F\u91D1\u878D")), _react2.default.createElement("body", {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 27
-        }
-      }, this.props.customValue, _react2.default.createElement(_document.Main, {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 29
-        }
-      }), _react2.default.createElement(_document.NextScript, {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 30
-        }
-      })));
+      return _react2.default.createElement("html", { lang: "en" }, _react2.default.createElement(_document.Head, null, _react2.default.createElement("meta", { charSet: "utf-8" }), _react2.default.createElement("link", { rel: "stylesheet", href: "/static/styles/antd_mobile_min.css" }), _react2.default.createElement("link", { rel: "stylesheet", href: "/static/styles/app_min.css" }), _react2.default.createElement("title", null, "\u561F\u561F\u91D1\u878D")), _react2.default.createElement("body", null, this.props.customValue, _react2.default.createElement(_document.Main, null), _react2.default.createElement(_document.NextScript, null), _react2.default.createElement("script", { src: "https://res.wx.qq.com/open/js/jweixin-1.2.0.js" }), _react2.default.createElement("script", { src: "/static/scripts/hd.js" }), _react2.default.createElement("script", { src: "/static/scripts/local-storage.js" })));
     }
   }], [{
     key: "getInitialProps",
@@ -134,4 +70,3 @@ var MyDocument = function (_Document) {
 }(_document2.default);
 
 exports.default = MyDocument;
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhZ2VzXFxfZG9jdW1lbnQuanMiXSwibmFtZXMiOlsiRG9jdW1lbnQiLCJIZWFkIiwiTWFpbiIsIk5leHRTY3JpcHQiLCJNeURvY3VtZW50IiwicHJvcHMiLCJjdXN0b21WYWx1ZSIsInJlbmRlclBhZ2UiLCJodG1sIiwiaGVhZCIsImVycm9ySHRtbCIsImNodW5rcyJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUFBLEFBQU8sQUFBWSxBQUFNLEFBQU07Ozs7Ozs7OztJLEFBRVY7Ozs7Ozs7Ozs7OzZCQVVWLEFBQ1A7NkJBQ0UsY0FBQSxVQUFNLE1BQU4sQUFBVztvQkFBWDtzQkFBQSxBQUNFO0FBREY7T0FBQSxrQkFDRSxBQUFDOztvQkFBRDtzQkFBQSxBQUNFO0FBREY7QUFBQSxpREFDUSxTQUFOLEFBQWM7b0JBQWQ7c0JBREYsQUFDRSxBQUNBO0FBREE7b0RBQ1EsS0FBUixBQUFZO29CQUFaO3NCQUZGLEFBRUUsQUFDQTtBQURBO29EQUNRLEtBQVIsQUFBWTtvQkFBWjtzQkFIRixBQUdFLEFBQ0E7QUFEQTtvREFDUSxLQUFSLEFBQVk7b0JBQVo7c0JBSkYsQUFJRSxBQUNBO0FBREE7b0RBQ1EsS0FBUixBQUFZO29CQUFaO3NCQUxGLEFBS0UsQUFDQTtBQURBO29EQUNRLEtBQVIsQUFBWTtvQkFBWjtzQkFORixBQU1FLEFBQ0E7QUFEQTtrREFDTSxLQUFOLEFBQVUsY0FBYSxNQUF2QixBQUE0QjtvQkFBNUI7c0JBUEYsQUFPRSxBQUNBO0FBREE7a0RBQ00sS0FBTixBQUFVLGNBQWEsTUFBdkIsQUFBNEI7b0JBQTVCO3NCQVJGLEFBUUUsQUFDQTtBQURBOzBCQUNBLGNBQUE7O29CQUFBO3NCQUFBO0FBQUE7QUFBQSxTQVZKLEFBQ0UsQUFTRSxBQUVGLDhDQUFBLGNBQUE7O29CQUFBO3NCQUFBLEFBQ0c7QUFESDtBQUFBLGNBQ0csQUFBSyxNQURSLEFBQ2MsQUFDWiw2QkFBQSxBQUFDOztvQkFBRDtzQkFGRixBQUVFLEFBQ0E7QUFEQTtBQUFBLDBCQUNBLEFBQUM7O29CQUFEO3NCQWhCTixBQUNFLEFBWUUsQUFHRSxBQUlQO0FBSk87QUFBQTs7OzswQ0ExQitCO1VBQWQsQUFBYyxrQkFBZCxBQUFjOzt3QkFBQSxBQUdqQztVQUhpQyxBQUVuQyxtQkFGbUMsQUFFbkM7VUFGbUMsQUFFN0IsbUJBRjZCLEFBRTdCO1VBRjZCLEFBRXZCLHdCQUZ1QixBQUV2QjtVQUZ1QixBQUVaLHFCQUZZLEFBRVosQUFFekI7OztjQUFPLE1BQ0MsTUFERCxNQUNPLFdBRFAsV0FDa0IsUUFEekIsQUFBTyxBQUdSO0FBSFEsQUFDTDs7Ozs7QUFOa0MsQTs7a0JBQW5CLEEiLCJmaWxlIjoiX2RvY3VtZW50LmpzP2VudHJ5Iiwic291cmNlUm9vdCI6IkQ6L1dPUksvcmVhY3Qtc3NyIn0=

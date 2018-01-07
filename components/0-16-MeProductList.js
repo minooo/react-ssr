@@ -1,3 +1,5 @@
+import { distanceInWordsToNow } from 'date-fns'
+import cn from 'date-fns/locale/zh_cn'
 import { WrapLink } from '@components'
 import { imgUrl } from '@utils'
 
@@ -43,7 +45,7 @@ export default data => (
           }
           {
             data.created_at &&
-            <div className="font24 c666">{data.type === 'favorite' ? '收藏' : '浏览'}时间：{moment(data.created_at, 'YYYY-MM-DD hh:mm:ss').fromNow()}</div>
+            <div className="font24 c666">{data.type === 'favorite' ? '收藏' : '浏览'}时间：{distanceInWordsToNow(data.created_at, { locale: cn })}前</div>
           }
         </div>
       </div>
