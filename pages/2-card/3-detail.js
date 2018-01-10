@@ -103,7 +103,7 @@ export default class extends Component {
       <Layout title={detail.name || '信用卡详情'}>
         <div className="equal overflow-y">
           <div
-            style={{ height: '40vw', maxheight: '4rem' }}
+            style={{ height: '40vw', maxHeight: '4rem' }}
             className="card-detail-bg bg-white flex jc-center ai-center"
           >
             <div className="card-detail-top log-bg">

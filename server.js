@@ -1,138 +1,94 @@
-const Koa = require('koa')
 const next = require('next')
-const Router = require('koa-router')
+const Koa = require('koa')
+const router = require('koa-route')
+const LRUCache = require('lru-cache')
 
 const port = parseInt(process.env.PORT, 10) || 8868
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
 
+// This is where we cache our rendered HTML pages
+const ssrCache = new LRUCache({
+  max: 100,
+  maxAge: 1000 * 60 * 60, // 1hour
+})
+
+/*
+ * NB: make sure to modify this to take into account anything that should trigger
+ * an immediate page change (e.g a locale stored in req.session)
+ */
+function getCacheKey(ctx) { return ctx.url }
+
+function renderAndCache(ctx, pagePath, noCache, queryParams = null) {
+  if (dev) ssrCache.reset()
+  if (noCache === 'noCache') {
+    return app.renderToHTML(ctx.req, ctx.res, pagePath, queryParams)
+      .then((html) => {
+        // Let's cache this page
+        console.info('no cache')
+        ctx.body = html
+      })
+      .catch((err) => {
+        console.info('ERRR', err)
+        return app.renderError(err, ctx.req, ctx.res, pagePath, queryParams)
+      })
+  }
+
+  const key = getCacheKey(ctx.req)
+
+  // If we have a page in the cache, let's serve it
+  if (ssrCache.has(key)) {
+    console.info(`CACHE HIT: ${key}`)
+    ctx.body = ssrCache.get(key)
+    return Promise.resolve()
+  }
+
+  // If not let's render the page into HTML
+  return app.renderToHTML(ctx.req, ctx.res, pagePath, queryParams)
+    .then((html) => {
+      // Let's cache this page
+      console.info(`CACHE MISS: ${key}`)
+      ssrCache.set(key, html)
+      ctx.body = html
+    })
+    .catch((err) => {
+      console.info('ERRR', err)
+      return app.renderError(err, ctx.req, ctx.res, pagePath, queryParams)
+    })
+}
 app.prepare()
   .then(() => {
-    const router = new Router()
-    router.get('/', async (ctx) => {
-      await app.render(ctx.req, ctx.res, '/index', ctx.query)
-      ctx.respond = false
-    })
+    const server = new Koa()
 
-    router.get('/search', async (ctx) => {
-      await app.render(ctx.req, ctx.res, '/search', ctx.query)
-      ctx.respond = false
-    })
+    server.use(router.get('/', ctx => renderAndCache(ctx, '/index')))
+    server.use(router.get('/search', ctx => renderAndCache(ctx, '/search')))
+    server.use(router.get('/loan', ctx => renderAndCache(ctx, '/1-loan/1-home')))
+    server.use(router.get('/loan/go', ctx => renderAndCache(ctx, '/1-loan/3-goLoan')))
+    server.use(router.get('/loan/:id', ctx => renderAndCache(ctx, '/1-loan/2-detail', 'noCache')))
+    server.use(router.get('/card', ctx => renderAndCache(ctx, '/2-card/1-home')))
+    server.use(router.get('/card/list', ctx => renderAndCache(ctx, '/2-card/2-list')))
+    server.use(router.get('/card/:id', ctx => renderAndCache(ctx, '/2-card/3-detail', 'noCache')))
+    server.use(router.get('/me', ctx => renderAndCache(ctx, '/3-me/1-home', 'noCache')))
+    server.use(router.get('/login', ctx => renderAndCache(ctx, '/3-me/2-login')))
+    server.use(router.get('/me/favorite', ctx => renderAndCache(ctx, '/3-me/3-favorite', 'noCache')))
+    server.use(router.get('/me/history', ctx => renderAndCache(ctx, '//3-me/4-history', 'noCache')))
+    server.use(router.get('/me/about', ctx => renderAndCache(ctx, '/3-me/5-about', 'noCache')))
+    server.use(router.get('/me/feedback', ctx => renderAndCache(ctx, '/3-me/6-feedback')))
+    server.use(router.get('/me/data', ctx => renderAndCache(ctx, '/3-me/7-myData', 'noCache')))
 
-    router.get('/loan', async (ctx) => {
-      await app.render(ctx.req, ctx.res, '/1-loan/1-home', ctx.query)
-      ctx.respond = false
-    })
-
-    router.get('/loan/go', async (ctx) => {
-      await app.render(ctx.req, ctx.res, '/1-loan/3-goLoan', ctx.query)
-      ctx.respond = false
-    })
-
-    router.get('/loan/:id', async (ctx) => {
-      await app.render(ctx.req, ctx.res, '/1-loan/2-detail', ctx.query)
-      ctx.respond = false
-    })
-
-    router.get('/card', async (ctx) => {
-      await app.render(ctx.req, ctx.res, '/2-card/1-home', ctx.query)
-      ctx.respond = false
-    })
-
-    router.get('/card/list', async (ctx) => {
-      await app.render(ctx.req, ctx.res, '/2-card/2-list', ctx.query)
-      ctx.respond = false
-    })
-
-    router.get('/card/:id', async (ctx) => {
-      await app.render(ctx.req, ctx.res, '/2-card/3-detail', ctx.query)
-      ctx.respond = false
-    })
-
-    router.get('/me', async (ctx) => {
-      await app.render(ctx.req, ctx.res, '/3-me/1-home', ctx.query)
-      ctx.respond = false
-    })
-
-    router.get('/login', async (ctx) => {
-      await app.render(ctx.req, ctx.res, '/3-me/2-login', ctx.query)
-      ctx.respond = false
-    })
-
-    router.get('/me/favorite', async (ctx) => {
-      await app.render(ctx.req, ctx.res, '/3-me/3-favorite', ctx.query)
-      ctx.respond = false
-    })
-
-    router.get('/me/history', async (ctx) => {
-      await app.render(ctx.req, ctx.res, '/3-me/4-history', ctx.query)
-      ctx.respond = false
-    })
-
-    router.get('/me/about', async (ctx) => {
-      await app.render(ctx.req, ctx.res, '/3-me/5-about', ctx.query)
-      ctx.respond = false
-    })
-
-    router.get('/me/feedback', async (ctx) => {
-      await app.render(ctx.req, ctx.res, '/3-me/6-feedback', ctx.query)
-      ctx.respond = false
-    })
-
-    router.get('/me/data', async (ctx) => {
-      await app.render(ctx.req, ctx.res, '/3-me/7-myData', ctx.query)
-      ctx.respond = false
-    })
-
-    router.get('*', async (ctx) => {
+    server.use(async (ctx) => {
       await handle(ctx.req, ctx.res)
       ctx.respond = false
     })
 
-    const server = new Koa()
     server.use(async (ctx, next) => {
       ctx.res.statusCode = 200
       await next()
     })
-
-    server.use(router.routes())
 
     server.listen(port, (err) => {
       if (err) throw err
       console.info(`> Ready on http://localhost:${port}`)
     })
   })
-
-
-// function handle(middleware) {
-//   return async (ctx) => {
-//     ctx.body = await new Promise((resolve) => {
-//       const END = ctx.res.end
-
-//       // Hijack stream to set ctx.body
-//       const pipe = (stream) => {
-//         ctx.res.end = END
-//         stream.unpipe(ctx.res)
-//         resolve(stream)
-//       }
-//       ctx.res.once('pipe', pipe)
-
-//       // Monkey patch res.end to set ctx.body
-//       ctx.res.end = (body) => {
-//         ctx.res.end = END
-//         ctx.res.removeListener('pipe', pipe)
-//         resolve(body)
-//       }
-
-//       // Create res.redirect method
-//       ctx.res.redirect = (url, status, message) => {
-//         if (status) ctx.status = status
-//         ctx.redirect(url)
-//         if (message) ctx.body = message
-//       }
-
-//       middleware(ctx)
-//     })
-//   }
-// }

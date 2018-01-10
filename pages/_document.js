@@ -1,5 +1,8 @@
 import Document, { Head, Main, NextScript } from 'next/document'
 
+const dev = process.env.NODE_ENV !== 'production'
+const path = dev ? '' : 'http://public.duduapp.net/finance/static'
+
 export default class MyDocument extends Document {
   static getInitialProps({ renderPage }) {
     const {
@@ -15,8 +18,8 @@ export default class MyDocument extends Document {
       <html lang="en">
         <Head>
           <meta charSet="utf-8" />
-          <link rel="stylesheet" href="/static/styles/antd_mobile_min.css" />
-          <link rel="stylesheet" href="/static/styles/app_min.css" />
+          <link rel="stylesheet" href={`${path}/static/styles/antd_mobile_min.css`} />
+          <link rel="stylesheet" href={`${path}/static/styles/app_min.css`} />
           <title>嘟嘟金融</title>
         </Head>
         <body>
@@ -24,8 +27,8 @@ export default class MyDocument extends Document {
           <Main />
           <NextScript />
           <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js" />
-          <script src="/static/scripts/hd.js" />
-          <script src="/static/scripts/local-storage.js" />
+          <script src={`${path}/static/scripts/hd.js`} />
+          <script src={`${path}/static/scripts/local-storage.js`} />
         </body>
       </html>
     )

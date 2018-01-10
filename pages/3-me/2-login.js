@@ -15,6 +15,8 @@ import { Layout } from '@components'
 export default class extends Component {
   state = {
     agree: true,
+    agreeCon: null,
+    agreeIsLoading: false,
     isShowAgreement: false,
     codeBtnActive: true,
     timerNum: 0,
@@ -91,6 +93,20 @@ export default class extends Component {
   }
 
   onShowAgreement = () => {
+    if (!this.state.agreeCon) {
+      if (!this.state.agreeIsLoading) {
+        this.setState(() => ({ agreeIsLoading: true }), () => {
+          http.get('register_agreement').then((response) => {
+            if (response.code === 200 && response.success) {
+              const agreeCon = response.data.register_agreement.register_agreement
+              this.setState(() => ({ agreeCon }))
+            } else {
+              Toast.fail(response.msg ? response.msg : '获取异常，请稍后再试。')
+            }
+          }).catch(() => { Toast.offline('抱歉，网络错误，请稍后再试！') })
+        })
+      }
+    }
     this.setState(pre => ({ isShowAgreement: !pre.isShowAgreement }))
   }
 
@@ -99,7 +115,7 @@ export default class extends Component {
   }
   render() {
     const {
-      agree, isShowAgreement, codeBtnActive, timerNum,
+      agree, isShowAgreement, codeBtnActive, timerNum, agreeCon,
     } = this.state
     return (
       <Layout title="登录">
@@ -110,9 +126,8 @@ export default class extends Component {
           closable
           animationType="slide-up"
         >
-          <div style={{ maxHeight: '90vh' }} className="scroll-y">
-            <p>协议详情！！</p>
-            <p>12341</p>
+          <div style={{ maxHeight: '90vh' }} className="scroll-y ptb20 plr20">
+            <div dangerouslySetInnerHTML={{ __html: agreeCon || '加载中...' }} />
           </div>
         </Modal>
         <div className="equal">
@@ -153,7 +168,7 @@ export default class extends Component {
           <div className="flex jc-center">
             <Checkbox.AgreeItem defaultChecked onChange={e => this.onSwitchAgree(e)}>
               我已阅读并同意
-              <button className="c-main" onClick={this.onShowAgreement}>《嘟嘟e融协议》</button>
+              <button className="c-main" onClick={this.onShowAgreement}>《用户注册协议》</button>
             </Checkbox.AgreeItem>
           </div>
 
