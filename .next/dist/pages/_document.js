@@ -70,7 +70,7 @@ var MyDocument = function (_Document) {
           fileName: _jsxFileName,
           lineNumber: 21
         }
-      }), _react2.default.createElement('link', { rel: 'stylesheet', href: path + '/static/styles/app_min.css', __source: {
+      }), _react2.default.createElement('link', { rel: 'stylesheet', href: path + '/static/styles/app_min.css?1', __source: {
           fileName: _jsxFileName,
           lineNumber: 22
         }

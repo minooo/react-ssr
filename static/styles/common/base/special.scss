@@ -172,6 +172,12 @@
   background-repeat: no-repeat;
   background-size: contain;
 }
+.me-bg {
+  background-image: url("../../images/me_bg.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
 .me-log-shadow {
   box-shadow: 0 0 0.1rem #d7d9da;
 }

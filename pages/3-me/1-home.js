@@ -85,19 +85,19 @@ export default class extends Component {
       <Layout title="个人中心">
         <div className="equal bg-white">
           <div
-            style={{ height: '2.46rem' }}
-            className="relative flex column jc-center ai-center bg-main"
+            style={{ height: '2.36rem' }}
+            className="relative flex column jc-center ai-center me-bg bg-white"
           >
             {/* <Btn
               style={{ position: 'absolute', top: '0.2rem', right: '0.35rem' }}
               path="/me/set"
               icoClass="i-set font38 c-white"
             /> */}
-            <div className="w84 h84 circle overflow-h me-logo" />
-            <div className="font28 bold c-white lh100 pt30">{user.name ? user.name : user.phone}</div>
+            <div className="w94 h94 circle overflow-h me-logo" style={{ border: '0.05rem solid #fff', marginTop: '0.7rem' }} />
+            <div className="font28 bold c-main lh100 pt20">{user.name ? user.name : user.phone}</div>
           </div>
 
-          <div className="pt10 pl25">
+          <div className="pt20 pl25">
             {
               list.map(item => (
                 <WrapLink

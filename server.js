@@ -73,7 +73,7 @@ app.prepare()
     server.use(router.get('/login', ctx => renderAndCache(ctx, '/3-me/2-login')))
     server.use(router.get('/me/favorite', ctx => renderAndCache(ctx, '/3-me/3-favorite', 'noCache')))
     server.use(router.get('/me/history', ctx => renderAndCache(ctx, '//3-me/4-history', 'noCache')))
-    server.use(router.get('/me/about', ctx => renderAndCache(ctx, '/3-me/5-about', 'noCache')))
+    server.use(router.get('/me/about', ctx => renderAndCache(ctx, '/3-me/5-about')))
     server.use(router.get('/me/feedback', ctx => renderAndCache(ctx, '/3-me/6-feedback')))
     server.use(router.get('/me/data', ctx => renderAndCache(ctx, '/3-me/7-myData', 'noCache')))
 
