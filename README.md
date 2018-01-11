@@ -6,7 +6,7 @@
 ## 架构简要说明
 很显然，这是移动端网站，选用了 [React16](https://github.com/facebook/react) + [next.js4](https://github.com/zeit/next.js) + [antd-mobile2](https://github.com/ant-design/ant-design-mobile) + [redux](https://github.com/reactjs/redux) 的技术栈，算是笔者学习React 两年来第一个服务端渲染的项目。由于爱折腾，笔者喜欢自己动手搭脚手架，期间参考了各路大牛的源码和想法，非常感谢！所以这次做下总结，如果恰好能帮到在React服务端渲染方面有困惑的同学，何乐而不为？
 
-- 目录，具体参照源码所示
+- 目录，具体参照源码所示  
 ![image.png](http://upload-images.jianshu.io/upload_images/111568-2b8e3e7ccbfc3d14.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 - 代码规范，本架构通过 eslint 配备了完善了 React 语法规范检查。
 - 样式，由于 next.js 目前的版本（v 4.2）并不建议配置loader（据说下个版本会支持），所以我们的样式最好能提前编译好，为此笔者额外配置了 webpack-handle-css.js 的文件，用于样式的实时编译和打包。同时引入了 antd-mobile 作为辅助UI库，并且支持主题配置。当然，本站依然使用了[rem布局](https://www.jianshu.com/p/985d26b40199)，至于字形图标的使用[请参阅这里](https://www.jianshu.com/p/8aa29bfdd046)。
