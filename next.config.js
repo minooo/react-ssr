@@ -17,6 +17,9 @@ module.exports = {
   useFileSystemPublicRoutes: false,
   assetPrefix: !dev ? 'http://public.duduapp.net/finance/static' : '',
   ...(dev && { onDemandEntries }),
+  exportPathMap: () => ({
+    '/': { page: '/' },
+  }),
   webpack: (config) => {
     if (ANALYZE) {
       config.plugins.push(new BundleAnalyzerPlugin({
