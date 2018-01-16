@@ -1,4 +1,3 @@
-import React from 'react'
 import uuid from 'uuid/v4'
 import { WrapLink, MultiColorIco } from '@components'
 
