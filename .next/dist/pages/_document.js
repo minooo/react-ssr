@@ -35,8 +35,9 @@ var _document2 = _interopRequireDefault(_document);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var dev = process.env.NODE_ENV !== 'production';
-var path = dev ? '' : 'http://public.duduapp.net/finance/static';
+var pro = process.env.NODE_ENV === 'production';
+var test = process.env.NODE_TEST === 'test';
+var path = pro ? test ? '' : 'http://public.duduapp.net/finance/static' : '';
 
 var MyDocument = function (_Document) {
   (0, _inherits3.default)(MyDocument, _Document);

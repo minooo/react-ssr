@@ -1,7 +1,8 @@
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer') // eslint-disable-line
 
 const { ANALYZE } = process.env
-const dev = process.env.NODE_ENV !== 'production'
+const pro = process.env.NODE_ENV === 'production'
+const test = process.env.NODE_TEST === 'test'
 
 // 开发模式下的页面缓存
 // SSR页面缓存配置 https://github.com/zeit/next.js/blob/canary/examples/ssr-caching/server.js
@@ -15,8 +16,8 @@ const onDemandEntries = {
 
 module.exports = {
   useFileSystemPublicRoutes: false,
-  assetPrefix: !dev ? 'http://public.duduapp.net/finance/static' : '',
-  ...(dev && { onDemandEntries }),
+  assetPrefix: pro ? (test ? '' : 'http://public.duduapp.net/finance/static') : '',
+  ...(!pro && !test && { onDemandEntries }),
   exportPathMap: () => ({
     '/': { page: '/' },
   }),

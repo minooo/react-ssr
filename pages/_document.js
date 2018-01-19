@@ -1,7 +1,8 @@
 import Document, { Head, Main, NextScript } from 'next/document'
 
-const dev = process.env.NODE_ENV !== 'production'
-const path = dev ? '' : 'http://public.duduapp.net/finance/static'
+const pro = process.env.NODE_ENV === 'production'
+const test = process.env.NODE_TEST === 'test'
+const path = pro ? (test ? '' : 'http://public.duduapp.net/finance/static') : ''
 
 export default class MyDocument extends Document {
   static getInitialProps({ renderPage }) {

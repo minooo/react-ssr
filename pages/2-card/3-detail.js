@@ -75,10 +75,15 @@ export default class extends Component {
     http.get('user_info', { token }).then((response) => {
       if (response.code === 200 && response.success) {
         // 记录申请的接口
-        http.post(`apply/1/${detail.id}`).then(() => {
+        http.put(
+          `card_detail/${detail.id}`,
+          { token, apply: 1 },
+        ).then(() => {
           Toast.hide()
-          window.location.href = detail.external_links
-        }).catch(() => { window.location.href = detail.external_links })
+          //window.location.href = detail.external_links
+        }).catch(() => {
+          //window.location.href = detail.external_links
+        })
       } else {
         Toast.info('当前操作需要登录哦，页面即将跳转', 2, () => {
           Router.replace({ pathname: '/3-me/2-login', query: { href: '/1-loan/2-detail', as: `/loan/${detail.id}` } }, '/login')

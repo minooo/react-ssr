@@ -3,8 +3,9 @@ const Koa = require('koa')
 const router = require('koa-route')
 const LRUCache = require('lru-cache')
 
-const port = parseInt(process.env.PORT, 10) || 8868
+const port = parseInt(process.env.PORT, 10) || 8869
 const dev = process.env.NODE_ENV !== 'production'
+const test = process.env.NODE_TEST === 'test'
 const app = next({ dev })
 const handle = app.getRequestHandler()
 
@@ -21,7 +22,7 @@ const ssrCache = new LRUCache({
 function getCacheKey(ctx) { return ctx.url }
 
 function renderAndCache(ctx, pagePath, noCache, queryParams = null) {
-  if (dev) ssrCache.reset()
+  if (dev || test) ssrCache.reset()
   if (noCache === 'noCache') {
     return app.renderToHTML(ctx.req, ctx.res, pagePath, queryParams)
       .then((html) => {

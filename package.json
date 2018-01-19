@@ -8,6 +8,7 @@
     "build": "next build",
     "export": "rimraf outCDN && next export -o outCDN",
     "start": "cross-env NODE_ENV=production node server.js",
+    "start-test": "cross-env NODE_ENV=production NODE_TEST=test node server.js",
     "analyze": "cross-env ANALYZE=1 next build",
     "css": "npm run css:build && npm run css:clean",
     "css:build": "webpack --config webpack-handle-css.js --progress --color",
