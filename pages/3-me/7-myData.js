@@ -113,7 +113,7 @@ export default class extends Component {
     const v = e.target.value
     if (key === 'provinceVal') {
       Toast.loading('获取城市数据')
-      http.get(`city/${v}`).then((response) => {
+      http.get('city', { province_id: v }).then((response) => {
         Toast.hide()
         if (response.code === 200 && response.success) {
           const cities = response.data.city
@@ -245,7 +245,7 @@ export default class extends Component {
       creditVal: (base3.info && base3.info.credit_condition) ? base3.info.credit_condition : base3.options.credit_condition[0].id,
       sesameCreditVal: (base3.info && base3.info.zhima_score) ? base3.info.zhima_score : base3.options.zhima_score[0].id,
     }), () => {
-      http.get(`city/${base.base.province_id || base.province[0].id}`).then((response) => {
+      http.get('city', { province_id: base.base.province_id || base.province[0].id }).then((response) => {
         Toast.hide()
         if (response.code === 200 && response.success) {
           const cities = response.data.city
