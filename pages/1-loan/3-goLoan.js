@@ -122,6 +122,7 @@ export default class extends Component {
       money: this.loanSize.value,
       purpose_id: purposeVal,
       timelimit_id: timelimitVal,
+      source: 1,
     }).then((response) => {
       Toast.hide()
       if (response.code === 200 && response.success) {

@@ -36,7 +36,7 @@ export default class extends Component {
       Toast.fail('请填写正确的验证码！')
     } else {
       Toast.loading('登录中')
-      http.post('sign', { phone, code }).then((response) => {
+      http.post('sign', { phone, code, source: 1 }).then((response) => {
         if (response.code === 200 && response.success) {
           Toast.hide()
           const { token } = response.data
