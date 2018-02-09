@@ -39,16 +39,11 @@ export default class extends Component {
       if (response.code === 200 && response.success) {
         store.dispatch(getUser(response.data.user))
       } else {
-        if (res) {
-          res.writeHead(301, {
-            Location: '/login',
-          })
-          res.end()
-          res.finished = true
-        }
-        if (!res) {
-          Router.replace('/3-me/2-login', '/login')
-        }
+        res.writeHead(301, {
+          Location: '/login',
+        })
+        res.end()
+        res.finished = true
       }
     } catch (error) {
       const err = util.inspect(error)
@@ -58,6 +53,11 @@ export default class extends Component {
   }
   state = {
     dataParam: null,
+  }
+  componentWillMount() {
+    if (this.props.err) {
+      Router.replace('/3-me/2-login', '/login')
+    }
   }
   componentDidMount() {
     if (this.props.user.phone) {

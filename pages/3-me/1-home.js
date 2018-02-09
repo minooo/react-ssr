@@ -23,7 +23,7 @@ export default class extends Component {
   static async getInitialProps(ctx) {
     // err req res pathname query asPath isServer
     const {
-      store, req, res, isServer,
+      store, req, res,
     } = ctx
     if (!store.getState().user) {
       try {
@@ -38,20 +38,15 @@ export default class extends Component {
         }
 
         // 检测token是否有效
-        const response = await http.get('user_info', { token }, isServer)
+        const response = await http.get('user_info', { token }, !!req)
         if (response.code === 200 && response.success) {
           store.dispatch(getUser(response.data.user))
         } else {
-          if (res) {
-            res.writeHead(301, {
-              Location: '/login',
-            })
-            res.end()
-            res.finished = true
-          }
-          if (!res) {
-            Router.replace('/3-me/2-login', '/login')
-          }
+          res.writeHead(301, {
+            Location: '/login',
+          })
+          res.end()
+          res.finished = true
         }
       } catch (error) {
         const err = util.inspect(error)
@@ -61,11 +56,18 @@ export default class extends Component {
     return null
   }
 
+  componentWillMount() {
+    const { err } = this.props
+    if (err) {
+      Router.replace('/3-me/2-login', '/login')
+    }
+  }
+
   onLogout = () => {
-    const { getOut } = this.props
+    const { getOut, url: { replace } } = this.props
     delCookie('userToken')
     getOut()
-    Router.replace('/3-me/2-login', '/login')
+    replace('/3-me/2-login', '/login')
   }
 
   render() {

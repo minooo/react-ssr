@@ -3,7 +3,7 @@ const Koa = require('koa')
 const router = require('koa-route')
 const LRUCache = require('lru-cache')
 
-const port = parseInt(process.env.PORT, 10) || 8869
+const port = parseInt(process.env.PORT, 10) || 8868
 const dev = process.env.NODE_ENV !== 'production'
 const test = process.env.NODE_TEST === 'test'
 const app = next({ dev })

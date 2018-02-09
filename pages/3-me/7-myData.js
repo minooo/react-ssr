@@ -52,16 +52,11 @@ export default class extends Component {
         const { user } = response.data
         store.dispatch(getUser(user))
       } else {
-        if (res) {
-          res.writeHead(301, {
-            Location: '/login',
-          })
-          res.end()
-          res.finished = true
-        }
-        if (!res) {
-          Router.replace('/3-me/2-login', '/login')
-        }
+        res.writeHead(301, {
+          Location: '/login',
+        })
+        res.end()
+        res.finished = true
       }
       return {
         base, base2, base3,
@@ -93,6 +88,11 @@ export default class extends Component {
     isCar: 0,
     creditVal: '',
     sesameCreditVal: '',
+  }
+  componentWillMount() {
+    if (this.props.err) {
+      Router.replace('/3-me/2-login', '/login')
+    }
   }
   componentDidMount() {
     const { base, base2, base3 } = this.props

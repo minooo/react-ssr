@@ -45,16 +45,11 @@ export default class extends Component {
       if (response.code === 200 && response.success) {
         store.dispatch(getUser(response.data.user))
       } else {
-        if (res) {
-          res.writeHead(301, {
-            Location: '/login?href=/1-loan/3-goLoan&as=/loan/go',
-          })
-          res.end()
-          res.finished = true
-        }
-        if (!res) {
-          Router.replace({ pathname: '/3-me/2-login', query: { href: '/1-loan/3-goLoan', as: '/loan/go' } }, '/login')
-        }
+        res.writeHead(301, {
+          Location: '/login?href=/1-loan/3-goLoan&as=/loan/go',
+        })
+        res.end()
+        res.finished = true
       }
       return { wantLoan }
     } catch (error) {
@@ -69,7 +64,11 @@ export default class extends Component {
     results: null,
     isResult: false,
   }
-
+  componentWillMount() {
+    if (this.props.err) {
+      Router.replace({ pathname: '/3-me/2-login', query: { href: '/1-loan/3-goLoan', as: '/loan/go' } }, '/login')
+    }
+  }
   componentDidMount() {
     const { wantLoan } = this.props
     if (wantLoan) {

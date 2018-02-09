@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "node server.js",
-    "build": "next build",
+    "build": "rimraf .next && next build",
     "export": "rimraf outCDN && next export -o outCDN",
     "start": "cross-env NODE_ENV=production node server.js",
     "start-test": "cross-env NODE_ENV=production NODE_TEST=test node server.js",

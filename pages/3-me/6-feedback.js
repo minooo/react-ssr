@@ -38,16 +38,11 @@ export default class extends Component {
       if (response.code === 200 && response.success) {
         store.dispatch(getUser(response.data.user))
       } else {
-        if (res) {
-          res.writeHead(301, {
-            Location: '/login',
-          })
-          res.end()
-          res.finished = true
-        }
-        if (!res) {
-          Router.replace({ pathname: '/3-me/2-login', query: { href: '/3-me/6-feedback', as: '/me/feedback' } }, '/login')
-        }
+        res.writeHead(301, {
+          Location: '/login',
+        })
+        res.end()
+        res.finished = true
       }
     } catch (error) {
       const err = util.inspect(error)
@@ -56,6 +51,11 @@ export default class extends Component {
     return null
   }
   state = { disable: true }
+  componentWillMount() {
+    if (this.props.err) {
+      Router.replace({ pathname: '/3-me/2-login', query: { href: '/3-me/6-feedback', as: '/me/feedback' } }, '/login')
+    }
+  }
   onChange = (v) => {
     const val = v.trim()
     this.setState(() => ({ disable: !val }))

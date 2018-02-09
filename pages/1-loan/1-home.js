@@ -42,7 +42,7 @@ export default class extends Component {
   }
   componentDidMount() {
     const { loansFilter } = this.props
-    if (loansFilter.currentTitle) {
+    if (loansFilter && loansFilter.currentTitle) {
       this.changeData(loansFilter)
     }
   }
