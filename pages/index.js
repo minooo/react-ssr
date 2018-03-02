@@ -78,8 +78,7 @@ export default class extends Component {
                 home.tui_loans_banner && home.tui_loans_banner.length > 0 && home.tui_loans_banner.map(item => (
                   <WrapLink
                     key={uuid()}
-                    href="/1-loan/2-detail"
-                    as={`/loan/${item.id}`}
+                    href={item.url}
                     className="block h-100"
                   >
                     <img src={imgUrl(item.banner)} className="h-100" alt="首页banner" />
