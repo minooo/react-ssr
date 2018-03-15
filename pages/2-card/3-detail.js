@@ -80,9 +80,9 @@ export default class extends Component {
           { token, apply: 1 },
         ).then(() => {
           Toast.hide()
-          // window.location.href = detail.external_links
+          window.location.href = detail.external_links
         }).catch(() => {
-          // window.location.href = detail.external_links
+          window.location.href = detail.external_links
         })
       } else {
         Toast.info('当前操作需要登录哦，页面即将跳转', 2, () => {

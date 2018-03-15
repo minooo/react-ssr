@@ -20,7 +20,7 @@ export default class MyDocument extends Document {
         <Head>
           <meta charSet="utf-8" />
           <link rel="stylesheet" href={`${path}/static/styles/antd_mobile_min.css`} />
-          <link rel="stylesheet" href={`${path}/static/styles/app_min.css?4`} />
+          <link rel="stylesheet" href={`${path}/static/styles/app_min.css?5`} />
           <title>嘟嘟金融</title>
         </Head>
         <body>

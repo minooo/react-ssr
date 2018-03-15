@@ -12,7 +12,6 @@ import {
   Btn,
   WrapLink,
   MultiColorIco,
-  ErrorFetch,
 } from '@components'
 
 const util = require('util')
@@ -80,7 +79,7 @@ export default class extends Component {
       { ico: 'i-about c-me-about', text: ['关于我们', ''], href: '/3-me/5-about', as: '/me/about' }, // eslint-disable-line
     ]
     if (err) {
-      return <ErrorFetch err={err} />
+      return null
     }
     if (!user) return null
     return (
