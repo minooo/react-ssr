@@ -368,9 +368,12 @@ export default class extends Component {
           <div className="pt25 pb20 bg-white">
             <div className="card-title font30 bold c333 pl20 h36">申请条件</div>
           </div>
-          <div className="font28 c666 bg-white plr25 pb25 lh150">
-            { detail.application_requirements ? detail.application_requirements : '小编上传中' }
-          </div>
+          <div
+            className="font28 c666 bg-white plr25 pb25 lh150"
+            dangerouslySetInnerHTML={{
+              __html: detail.application_requirements ? detail.application_requirements : '小编上传中',
+            }}
+          />
           {
             detail.customer_tel &&
             <div className="h70 plr25 flex ai-center">
