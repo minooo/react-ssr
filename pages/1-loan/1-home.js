@@ -96,7 +96,7 @@ export default class extends Component {
         currentTitle: newTitle,
         selectList,
         dataParam,
-        banner: dataParam.type !== undefined ? selectList[1].list[dataParam.type].banner : '',
+        banner: dataParam.type !== undefined ? selectList[1].list.find(item => item.id === dataParam.type).banner : '',
       }))
     } else {
       this.setState(() => ({
