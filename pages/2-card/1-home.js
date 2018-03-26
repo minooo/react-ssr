@@ -80,7 +80,7 @@ export default class extends Component {
           </div>
           <div className="flex bg-white">
             {
-              cardsHome.banks && cardsHome.banks.length > 4 && cardsHome.banks.slice(5, 9).map(item => (
+              cardsHome.banks && cardsHome.banks.length > 4 && cardsHome.banks.slice(5, 10).map(item => (
                 <WrapLink
                   key={uuid()}
                   style={{ width: '20%' }}
