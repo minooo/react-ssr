@@ -39,7 +39,6 @@ export default class extends Component {
     setShare({
       title: '信用卡',
       desc: '各种最新最惠的信用卡产品，值得你过来瞅一眼',
-      imgUrl: 'http://public.duduapp.net/finance/static/logo_head.png',
     })
   }
   render() {

@@ -45,7 +45,6 @@ export default class extends Component {
     setShare({
       title: '嘟嘟e融首页',
       desc: '一站式专业贷款服务平台',
-      imgUrl: 'http://public.duduapp.net/finance/static/logo_head.png',
     })
   }
   render() {

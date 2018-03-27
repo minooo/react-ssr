@@ -102,7 +102,6 @@ export default class extends Component {
     setShare({
       title: '我在嘟嘟e融',
       desc: '快来完善你的信息',
-      imgUrl: 'http://public.duduapp.net/finance/static/logo_head.png',
     })
   }
 

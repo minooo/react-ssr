@@ -6,7 +6,7 @@ export const setShare = (config) => {
   const params = {
     title: config.title || '',
     desc: config.desc || '',
-    imgUrl: config.imgUrl || '',
+    imgUrl: config.imgUrl || 'http://public.duduapp.net/finance/static/logo.png',
     link: config.link || window.location.href,
   }
   wx.ready(() => {

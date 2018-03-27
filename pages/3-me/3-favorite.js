@@ -66,7 +66,6 @@ export default class extends Component {
     setShare({
       title: '我在嘟嘟e融',
       desc: '我的收藏',
-      imgUrl: 'http://public.duduapp.net/finance/static/logo_head.png',
     })
   }
   componentWillReceiveProps(nextProps) {

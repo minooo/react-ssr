@@ -25,7 +25,6 @@ export default class extends Component {
     setShare({
       title: '登陆',
       desc: '快来注册嘟嘟e融',
-      imgUrl: 'http://public.duduapp.net/finance/static/logo_head.png',
     })
   }
   componentWillUnmount() {

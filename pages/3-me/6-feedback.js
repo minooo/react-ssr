@@ -60,7 +60,6 @@ export default class extends Component {
     setShare({
       title: '反馈',
       desc: '欢迎您的建议',
-      imgUrl: 'http://public.duduapp.net/finance/static/logo_head.png',
     })
   }
   onChange = (v) => {

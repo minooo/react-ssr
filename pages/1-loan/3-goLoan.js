@@ -74,7 +74,6 @@ export default class extends Component {
     setShare({
       title: '贷款申请',
       desc: '按需贷款，就是这么简单',
-      imgUrl: 'http://public.duduapp.net/finance/static/logo_head.png',
     })
     if (wantLoan) {
       this.setMyState(wantLoan)

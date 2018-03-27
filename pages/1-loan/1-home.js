@@ -48,7 +48,6 @@ export default class extends Component {
     setShare({
       title: '贷款',
       desc: '各种贷款产品应有尽有',
-      imgUrl: 'http://public.duduapp.net/finance/static/logo_head.png',
     })
   }
 
