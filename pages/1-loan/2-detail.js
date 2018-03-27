@@ -4,7 +4,7 @@ import uuid from 'uuid/v4'
 import Router from 'next/router'
 import cookie from 'cookie'
 import { Toast, InputItem, Picker } from 'antd-mobile'
-import { imgUrl, http, clipPrice, clipBigNum, getUrlLastStr } from '@utils'
+import { imgUrl, http, clipPrice, clipBigNum, getUrlLastStr, setShare } from '@utils'
 import { Layout, ErrorFetch, DetailFoot, Btn, MultiColorIco, NoDataIco } from '@components'
 
 const util = require('util')
@@ -45,8 +45,14 @@ export default class extends Component {
     rate: 0,
   }
   componentDidMount() {
-    if (this.props.detail) {
+    const { detail } = this.props
+    if (detail) {
       this.setMyState()
+      setShare({
+        title: detail.name,
+        desc: detail.description,
+        imgUrl: detail.thumb,
+      })
     }
   }
   componentWillReceiveProps(nextProps) {

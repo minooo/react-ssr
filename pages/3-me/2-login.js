@@ -4,7 +4,7 @@ import Router from 'next/router'
 import { connect } from 'react-redux'
 import { getUser } from '@actions'
 import reduxPage from '@reduxPage'
-import { isMobile, http, setCookie, searchToObj } from '@utils'
+import { isMobile, http, setCookie, searchToObj, setShare } from '@utils'
 import { Layout } from '@components'
 
 @reduxPage
@@ -21,10 +21,16 @@ export default class extends Component {
     codeBtnActive: true,
     timerNum: 0,
   }
+  componentDidMount() {
+    setShare({
+      title: '登陆',
+      desc: '快来注册嘟嘟e融',
+      imgUrl: 'http://public.duduapp.net/finance/static/logo_head.png',
+    })
+  }
   componentWillUnmount() {
     clearInterval(this.tick)
   }
-
   onLogin = () => {
     const { getUser, url: { query } } = this.props
     const URLquery = searchToObj()

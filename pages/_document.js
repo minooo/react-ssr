@@ -13,7 +13,6 @@ export default class MyDocument extends Document {
       html, head, errorHtml, chunks,
     }
   }
-
   render() {
     return (
       <html lang="en">
@@ -27,7 +26,7 @@ export default class MyDocument extends Document {
           {this.props.customValue}
           <Main />
           <NextScript />
-          <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js" />
+          <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js" />
           <script src={`${path}/static/scripts/hd.js`} />
           <script src={`${path}/static/scripts/local-storage.js`} />
         </body>

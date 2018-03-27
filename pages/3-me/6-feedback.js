@@ -4,7 +4,7 @@ import Router from 'next/router'
 import cookie from 'cookie'
 import { TextareaItem, Toast } from 'antd-mobile'
 import reduxPage from '@reduxPage'
-import { http } from '@utils'
+import { http, setShare } from '@utils'
 import { getUser } from '@actions'
 import {
   Layout,
@@ -55,6 +55,13 @@ export default class extends Component {
     if (this.props.err) {
       Router.replace({ pathname: '/3-me/2-login', query: { href: '/3-me/6-feedback', as: '/me/feedback' } }, '/login')
     }
+  }
+  componentDidMount() {
+    setShare({
+      title: '反馈',
+      desc: '欢迎您的建议',
+      imgUrl: 'http://public.duduapp.net/finance/static/logo_head.png',
+    })
   }
   onChange = (v) => {
     const val = v.trim()

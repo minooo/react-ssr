@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Router from 'next/router'
 import cookie from 'cookie'
 import reduxPage from '@reduxPage'
-import { http } from '@utils'
+import { http, setShare } from '@utils'
 import { getUser } from '@actions'
 import {
   Layout,
@@ -63,6 +63,11 @@ export default class extends Component {
     if (this.props.user.phone) {
       this.setParam()
     }
+    setShare({
+      title: '我在嘟嘟e融',
+      desc: '我的收藏',
+      imgUrl: 'http://public.duduapp.net/finance/static/logo_head.png',
+    })
   }
   componentWillReceiveProps(nextProps) {
     if (!this.props.user.phone && nextProps.user.phone) {

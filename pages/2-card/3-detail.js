@@ -3,7 +3,7 @@ import { Toast } from 'antd-mobile'
 import Router from 'next/router'
 import cookie from 'cookie'
 import { Layout, ErrorFetch, DetailFoot, NoDataIco } from '@components'
-import { http, imgUrl, getUrlLastStr } from '@utils'
+import { http, imgUrl, getUrlLastStr, setShare } from '@utils'
 
 const util = require('util')
 
@@ -36,7 +36,13 @@ export default class extends Component {
     favorited: false,
   }
   componentDidMount() {
-    if (this.props.detail) {
+    const { detail } = this.props
+    if (detail) {
+      setShare({
+        title: detail.name,
+        desc: detail.description,
+        imgUrl: detail.images,
+      })
       this.setMyState()
     }
   }

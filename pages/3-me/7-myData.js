@@ -5,7 +5,7 @@ import cookie from 'cookie'
 import { Steps, Toast } from 'antd-mobile'
 import uuid from 'uuid/v4'
 import reduxPage from '@reduxPage'
-import { http, isIDNumber, isName } from '@utils'
+import { http, isIDNumber, isName, setShare } from '@utils'
 import { getUser } from '@actions'
 import {
   Layout,
@@ -99,6 +99,11 @@ export default class extends Component {
     if (base && base2 && base3) {
       this.setMyState(base, base2, base3)
     }
+    setShare({
+      title: '我在嘟嘟e融',
+      desc: '快来完善你的信息',
+      imgUrl: 'http://public.duduapp.net/finance/static/logo_head.png',
+    })
   }
 
   componentWillReceiveProps(nextProps) {

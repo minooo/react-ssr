@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import uuid from 'uuid/v4'
 import reduxPage from '@reduxPage'
 import { getHome } from '@actions'
-import { imgUrl, http } from '@utils'
+import { imgUrl, http, setShare } from '@utils'
 import {
   ErrorFetch,
   Layout,
@@ -40,6 +40,13 @@ export default class extends Component {
   }
   state = {
     messageList: ['136****5422成功贷款2万元', '186****7399成功贷款3万元', '158****0919成功贷款5万元', '151****6655成功贷款3000元'],
+  }
+  componentDidMount() {
+    setShare({
+      title: '嘟嘟e融首页',
+      desc: '一站式专业贷款服务平台',
+      imgUrl: 'http://public.duduapp.net/finance/static/logo_head.png',
+    })
   }
   render() {
     const { home, err } = this.props

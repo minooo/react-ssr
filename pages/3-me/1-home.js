@@ -5,7 +5,7 @@ import Router from 'next/router'
 import cookie from 'cookie'
 import reduxPage from '@reduxPage'
 import { getOut, getUser } from '@actions'
-import { http, delCookie } from '@utils'
+import { http, delCookie, setShare } from '@utils'
 import {
   Layout,
   Nav,
@@ -60,6 +60,14 @@ export default class extends Component {
     if (err) {
       Router.replace('/3-me/2-login', '/login')
     }
+  }
+
+  componentDidMount() {
+    setShare({
+      title: '我在嘟嘟e融',
+      desc: '我的个人中心',
+      imgUrl: 'http://public.duduapp.net/finance/static/logo_head.png',
+    })
   }
 
   onLogout = () => {

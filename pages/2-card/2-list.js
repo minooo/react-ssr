@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import reduxPage from '@reduxPage'
 import { getCardsFilter } from '@actions'
-import { http, searchToObj } from '@utils'
+import { http, searchToObj, setShare } from '@utils'
 import {
   ErrorFetch,
   Layout,
@@ -42,6 +42,11 @@ export default class extends Component {
     if (cardsFilter.currentTitle) {
       this.changeData(cardsFilter)
     }
+    setShare({
+      title: '信用卡列表',
+      desc: '各种最新最惠的信用卡产品，值得你过来瞅一眼',
+      imgUrl: 'http://public.duduapp.net/finance/static/logo_head.png',
+    })
   }
   componentWillReceiveProps(nextProps) {
     if (!this.props.cardsFilter.currentTitle && nextProps.cardsFilter.currentTitle) {

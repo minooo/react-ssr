@@ -6,7 +6,7 @@ import { Toast } from 'antd-mobile'
 import uuid from 'uuid/v4'
 import reduxPage from '@reduxPage'
 import { getUser } from '@actions'
-import { http } from '@utils'
+import { http, setShare } from '@utils'
 import {
   ErrorFetch,
   Layout,
@@ -71,6 +71,11 @@ export default class extends Component {
   }
   componentDidMount() {
     const { wantLoan } = this.props
+    setShare({
+      title: '贷款申请',
+      desc: '按需贷款，就是这么简单',
+      imgUrl: 'http://public.duduapp.net/finance/static/logo_head.png',
+    })
     if (wantLoan) {
       this.setMyState(wantLoan)
     }

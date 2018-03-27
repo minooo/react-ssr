@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import reduxPage from '@reduxPage'
 import { getLoansFilter } from '@actions'
-import { imgUrl, http, searchToObj } from '@utils'
+import { imgUrl, http, searchToObj, setShare } from '@utils'
 import {
   ErrorFetch,
   Layout,
@@ -45,6 +45,11 @@ export default class extends Component {
     if (loansFilter && loansFilter.currentTitle) {
       this.changeData(loansFilter)
     }
+    setShare({
+      title: '贷款',
+      desc: '各种贷款产品应有尽有',
+      imgUrl: 'http://public.duduapp.net/finance/static/logo_head.png',
+    })
   }
 
   componentWillReceiveProps(nextProps) {
