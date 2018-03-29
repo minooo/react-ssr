@@ -42,13 +42,13 @@ export default class extends Component {
   }
   componentDidMount() {
     const { loansFilter } = this.props
-    if (loansFilter && loansFilter.currentTitle) {
-      this.changeData(loansFilter)
-    }
     setShare({
       title: '贷款',
       desc: '各种贷款产品应有尽有',
     })
+    if (loansFilter && loansFilter.currentTitle) {
+      this.changeData(loansFilter)
+    }
   }
 
   componentWillReceiveProps(nextProps) {

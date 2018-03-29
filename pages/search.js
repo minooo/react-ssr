@@ -3,7 +3,7 @@ import { Toast } from 'antd-mobile'
 import { connect } from 'react-redux'
 import uuid from 'uuid/v4'
 import reduxPage from '@reduxPage'
-import { http, cache } from '@utils'
+import { http, cache, setShare } from '@utils'
 import { getHotSearch, getMySearch } from '@actions'
 import {
   ErrorFetch,
@@ -42,6 +42,10 @@ export default class extends Component {
   }
   componentDidMount() {
     const { getMySearch } = this.props
+    setShare({
+      title: '搜索',
+      desc: 'N多产品，搜搜看吧！',
+    })
     let mySearch
     if (cache.getItem('my_search')) {
       mySearch = cache.getItem('my_search')

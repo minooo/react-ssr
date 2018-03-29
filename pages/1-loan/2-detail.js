@@ -57,6 +57,11 @@ export default class extends Component {
   }
   componentWillReceiveProps(nextProps) {
     if (!this.props.detail && nextProps.detail) {
+      setShare({
+        title: nextProps.detail.name,
+        desc: nextProps.detail.description,
+        imgUrl: nextProps.detail.thumb,
+      })
       this.setMyState()
     }
   }
