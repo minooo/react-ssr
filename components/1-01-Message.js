@@ -3,7 +3,7 @@ import { Carousel } from 'antd-mobile'
 import uuid from 'uuid/v4'
 import { Btn } from '@components'
 
-export default ({ list = ['欢迎来到嘟嘟金融'] }) => (
+export default ({ list = ['欢迎来到嘟嘟e贷'] }) => (
   <div className="h68 bg-white r4 flex ai-center home-message">
     <Btn
       ver

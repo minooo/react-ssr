@@ -24,7 +24,7 @@ export default class extends Component {
   componentDidMount() {
     setShare({
       title: '登陆',
-      desc: '快来注册嘟嘟e融',
+      desc: '快来注册嘟嘟e贷',
     })
   }
   componentWillUnmount() {

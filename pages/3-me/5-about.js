@@ -5,7 +5,7 @@ import { Layout } from '@components'
 export default class extends Component {
   componentDidMount() {
     setShare({
-      title: '嘟嘟e融',
+      title: '嘟嘟e贷',
       desc: '关于我们',
     })
   }

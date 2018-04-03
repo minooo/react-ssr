@@ -64,7 +64,7 @@ export default class extends Component {
       this.setParam()
     }
     setShare({
-      title: '我在嘟嘟e融',
+      title: '我在嘟嘟e贷',
       desc: '我的浏览记录',
     })
   }

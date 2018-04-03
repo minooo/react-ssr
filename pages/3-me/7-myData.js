@@ -100,7 +100,7 @@ export default class extends Component {
       this.setMyState(base, base2, base3)
     }
     setShare({
-      title: '我在嘟嘟e融',
+      title: '我在嘟嘟e贷',
       desc: '快来完善你的信息',
     })
   }

@@ -43,7 +43,7 @@ export default class extends Component {
   }
   componentDidMount() {
     setShare({
-      title: '嘟嘟e融首页',
+      title: '嘟嘟e贷首页',
       desc: '一站式专业贷款服务平台',
     })
   }
