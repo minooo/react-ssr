@@ -18,8 +18,9 @@ export default class MyDocument extends Document {
       <html lang="en">
         <Head>
           <meta charSet="utf-8" />
+          <meta name="version" content="1.0.0" />
           <link rel="stylesheet" href={`${path}/static/styles/antd_mobile_min.css`} />
-          <link rel="stylesheet" href={`${path}/static/styles/app_min.css?6`} />
+          <link rel="stylesheet" href={`${path}/static/styles/app_min.css?7`} />
           <title>嘟嘟e贷</title>
         </Head>
         <body>
