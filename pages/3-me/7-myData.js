@@ -113,6 +113,9 @@ export default class extends Component {
   onSwitch = (key) => {
     this.setState(pre => ({ [key]: pre[key] === 1 ? 0 : 1 }))
   }
+  onSwitchSex = (key) => {
+    this.setState(pre => ({ [key]: pre[key] === 1 ? 2 : 1 }))
+  }
   onChange = (e, key) => {
     const v = e.target.value
     if (key === 'provinceVal') {
@@ -302,7 +305,7 @@ export default class extends Component {
                 className="block equal reset text-right plr30 font28 c-main"
               />
             </div>
-            <SwitchList title="性别" onSwitch={this.onSwitch} keyVal="isMan" stateVal={isMan} yes="男" no="女" />
+            <SwitchList title="性别" onSwitch={this.onSwitchSex} keyVal="isMan" stateVal={isMan} yes="男" no="女" />
 
             <div className="h80 border-bottom flex jc-between ai-center">
               <div className="font28 c666">身份证号</div>
