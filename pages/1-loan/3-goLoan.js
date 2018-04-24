@@ -144,7 +144,7 @@ export default class extends Component {
   }
   initState = () => {
     const { url: { query } } = this.props
-    if (query.money) {
+    if (query && query.money) {
       const { money, purposeVal, timelimitVal } = query
       if (this.loanSize) { this.loanSize.value = money }
       this.setState(() => ({ purposeVal, timelimitVal }))
